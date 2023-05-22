@@ -25,7 +25,7 @@ export default class CpsProgressNote extends React.Component {
         show: !false,
         question: [
           {key:'patient_mrn_id', title: 'Patient list', flag: 1, val: '', option: []},
-          {key:'mrn_id', hint:'', title: 'MRN', flag: 0, typ: 'text', val: ''},
+          {key:'mrn_id', hint:'', title: 'MRN', flag: 5, typ: 'text', val: ''},
           {key:'cps_date', hint:'date', title: 'Date & time Seen by', open:false, flag: 2, typ: 'date', val: ''},
           {key:'cps_time', hint:'time', title: ' Time', open:false, flag: 2, typ: 'time', val: ''},
 
@@ -36,7 +36,7 @@ export default class CpsProgressNote extends React.Component {
           {key:'visit_date', hint:'', title: 'Visit Date & time', open:false, flag: 2, typ: 'date', val: ''},
           {key:'visit_time', hint:'', title: ' Time', open:false, flag: 2, typ: 'time', val: ''},
           // {key:'', hint:'', title: null, flag: 1, val: '', option: []},
-          {key:'informants_name', hint:'Name', title: 'Informants', flag: 0, typ: 'text', val: ''},
+          {key:'informants_name', hint:'Name', title: 'Informants', flag: 0, typ: 'text', val: '-'},
           {key:'informants_relationship', hint:'Relationship', title: 'Relationship', flag: 0, typ: 'text', val: ''},
           {key:'informants_contact', hint:'Contact No', title: 'Contact No', flag: 0, typ: 'text', val: ''},
           {key:'case_manager', hint:'', title:'Case Manager', flag: 1, val: '', option: []},
@@ -387,6 +387,14 @@ export default class CpsProgressNote extends React.Component {
                         (f.flag == 0) ?
                         (
                           <FormInput title={f.title} value={f.val} action={txt => {
+                            this.formInput[i].question[j].val = txt;
+                            this.setState({});
+                          }}/>
+                        ) :
+                        (f.flag == 5) ?
+                        (
+                          <FormInput title={f.title} value={f.val} editable={false}
+                            selectTextOnFocus={false} action={txt => {
                             this.formInput[i].question[j].val = txt;
                             this.setState({});
                           }}/>
