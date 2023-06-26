@@ -1,17 +1,17 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { ScrollView, View, TextInput } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import GlobalContext from '../GlobalContext';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Dropdown } from 'react-native-element-dropdown';
 import DatePicker from 'react-native-date-picker';
 import NetInfo from '@react-native-community/netinfo';
 import Http from '../common/http';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FormDateTime, FormDropdown, FormInput, FormRadioButton, FormTextArea } from './component';
+import { FormDropdown, FormInput, FormRadioButton, FormTextArea } from './component';
 
 export default class SetProgress extends React.Component {
   static contextType = GlobalContext;
@@ -26,15 +26,15 @@ export default class SetProgress extends React.Component {
         question: [
           // {key:'added_by', title: 'added_by', flag: 0, typ: 'text', val: ''},
           { key: 'patient_id', title: 'Patient list', flag: 1, val: '', option: [] },
-          { key: 'mrn', title: 'MRNXXXXXXXX', flag: 5, typ: 'text', val: '' },
-          { key: 'name', title: 'Name', flag: 5, typ: 'text', val: '' },
+          { key: 'mrn', title: 'MRNXXXXXXXX', flag: 5, typ: 'text', val: ''},
+          { key: 'name', title: 'Name', flag: 5, typ: 'text', val: ''},
           { key: 'date', title: 'Date', open: false, flag: 2, typ: 'date', val: '' },
           { key: 'time', title: 'Time', open: false, flag: 2, typ: 'time', val: '' },
           { key: 'staff_name', title: 'Staff Name', flag: 0, typ: 'text', val: '' },
           { key: 'activity_type', title: 'Type of activities', flag: 1, val: '', option: [] },
           { key: 'employment_status', title: 'Employment status', flag: 1, val: '', option: [] },
-          { key: 'progress_note', title: 'Progress note', flag: 0, typ: 'text', val: '' },
-          { key: 'management_plan', title: 'Management plan', flag: 0, typ: 'text', val: '' },
+          { key: 'progress_note', title: 'Progress note', flag: 0, typ: 'text', val: ''},
+          { key: 'management_plan', title: 'Management plan', flag: 0, typ: 'text', val: ''},
 
         ],
       },
@@ -42,7 +42,7 @@ export default class SetProgress extends React.Component {
         segment: 'OCCASION OF SERVICES',
         show: !false,
         question: [
-          { key: 'location_service', title: 'Location of services', flag: 1, val: '', option: [] },
+          { key: 'location_service', title: 'Location of services', flag: 1, val: '', option: []},
           { key: 'diagnosis_type', title: 'Type of diagnosis', flag: 1, val: '', option: [] },
           {
             key: 'service_category', title: 'Category of services', flag: 9, val: 'assisstance', option: [
@@ -54,8 +54,8 @@ export default class SetProgress extends React.Component {
             otherValues: { code_id: 0, sel_val: '', sub_code_id: 0, services_id: 0 },
             otherData: { icd9: [], icd10: [], external: [], assistance: [] },
           },
-          { key: 'complexity_service', title: 'Complexity of services', flag: 1, val: '', option: [] },
-          { key: 'outcome', title: 'Outcome', flag: 1, val: '', option: [] },
+          { key: 'complexity_service', title: 'Complexity of services', flag: 1, val: '', option: []},
+          { key: 'outcome', title: 'Outcome', flag: 1, val: '', option: []},
         ],
       },
       {
@@ -83,18 +83,18 @@ export default class SetProgress extends React.Component {
     this.formInput.forEach(e => {
       e.question.forEach(f => {
         if (f.flag == 9) {
-          if (f.val == "clinical") {
+          if (f.val == 'clinical') {
             SEND.code_id = f.otherValues.code_id;
             SEND.sub_code_id = f.otherValues.sub_code_id;
-            SEND.services_id = "";
+            SEND.services_id = '';
           } else {
             SEND.services_id = f.otherValues.service_id;
-            SEND.code_id = "";
-            SEND.sub_code_id = "";
+            SEND.code_id = '';
+            SEND.sub_code_id = '';
 
           }
 
-          console.log("9 == ", f);
+          console.log('9 == ', f);
         }
         if ((!f.val || f.val == '') && flag) {
           Http._toast(f.title + ' is required');
@@ -105,17 +105,17 @@ export default class SetProgress extends React.Component {
     });
 
     SEND.added_by = user.user.id;
-    SEND.patient_mrn_id = SEND["patient_id"];
+    SEND.patient_mrn_id = SEND.patient_id;
     SEND.status = 0;
-    console.log("Alldata >>", SEND);
+    console.log('Alldata >>', SEND);
 
     if (flag) {
       submitSEPNData(SEND).then(r => {
         console.log(r);
-        if (r['status']) {
+        if (r.status) {
           this.formInput.forEach((e, i) => {
             e.question.forEach((f, j) => {
-              this.formInput[i]['question'][j]['val'] = '';
+              this.formInput[i].question[j].val = '';
             });
           });
           this.setState({});
@@ -127,7 +127,7 @@ export default class SetProgress extends React.Component {
   }
 
   componentDidMount() {
-    const { submitCPSData, user } = this.context;
+    const { user } = this.context;
     this.formInput[0].question[5].val = user.user.name;
     NetInfo.fetch().then(state => {
       [
@@ -174,7 +174,7 @@ export default class SetProgress extends React.Component {
         if (state.isConnected) {
           Http.GET(dd[0]).then(r => {
             this.formInput[1].question[2].otherData[dd[1]] = [];
-            console.log(dd[1], ">>>", r);
+            console.log(dd[1], '>>>', r);
             if (r.code == 200) {
               this.formInput[1].question[2].otherData[dd[1]] = r.list;
               AsyncStorage.setItem(dd[0], JSON.stringify(this.formInput[1].question[2].otherData[dd[1]]));
@@ -203,7 +203,7 @@ export default class SetProgress extends React.Component {
         console.log('branch_id', user.branch.branch_id);
         Http.GET('patient-registration/getPatientRegistrationListMobile').then(r => {
           this.formInput[0].question[0].option = [];
-          console.log("patient data : ", r);
+          console.log('patient data : ', r);
           if (r.code == 200) {
 
             // this.formInput[0].question[0].option = r.list.map(e=>{
@@ -218,7 +218,7 @@ export default class SetProgress extends React.Component {
             // AsyncStorage.setItem(this.formInput[0].question[0].option,JSON.stringify(this.formInput[0].question[0].option));
             // this.setState({});
 
-            this.formInput[0].question[0].option = r.list.filter(rr => rr.branch_id == user.branch.branch_id);
+            this.formInput[0].question[0].option = r.list.filter(rr => rr.branch_id === user.branch.branch_id);
 
             AsyncStorage.setItem('patient-registration/getPatientRegistrationListMobile', JSON.stringify(r.list));
             this.setState({});
@@ -280,11 +280,10 @@ export default class SetProgress extends React.Component {
                               ) :
                               (f.flag == 5) ?
                               (
-                                <FormInput title={f.title} value={f.val} editable={false}
-                                  selectTextOnFocus={false} action={txt => {
+                                <FormInput title={f.title} value={f.val} disabled={false} action={txt => {
                                   this.formInput[i].question[j].val = txt;
-                                  this.setState({});
-                                }} />
+                                }}
+                                />
                               ) :
                               (f.flag == 1) ?
                                 (<FormDropdown option={f.option} value={f.val} action={item => {
@@ -337,7 +336,7 @@ export default class SetProgress extends React.Component {
                                         <View>
                                           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                                             {
-                                              f.option.map((obj, k) => {
+                                              f.option.map((obj) => {
                                                 return <FormRadioButton
                                                   icon={
                                                     (this.formInput[i].question[j].val == obj.id) ?

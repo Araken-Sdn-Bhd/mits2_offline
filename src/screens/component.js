@@ -6,12 +6,13 @@ import { Dropdown } from 'react-native-element-dropdown';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export function FormInput({title,value,action}) {
+export function FormInput({title,value,action,disabled}) {
   return (
     <TextInput
       placeholder={'Enter ' + title}
       placeholderTextColor={"black"}
       value={value}
+      editable={disabled}
       style={{
         flex:1,
         borderWidth: 1,

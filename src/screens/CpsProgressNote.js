@@ -1,14 +1,14 @@
+/* eslint-disable no-shadow */
+/* eslint-disable eqeqeq */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {ScrollView,View,TextInput} from 'react-native';
+import {ScrollView,View} from 'react-native';
 import { Text } from 'react-native-paper';
 import GlobalContext from '../GlobalContext';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Dropdown } from 'react-native-element-dropdown';
 import DatePicker from 'react-native-date-picker';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import { FormDropdown, FormInput, FormRadioButton, FormTextArea } from './component';
 import NetInfo from '@react-native-community/netinfo';
 import Http from '../common/http';
@@ -16,7 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class CpsProgressNote extends React.Component {
   static contextType = GlobalContext;
-  formInput=[];
+  formInput = [];
   constructor(props) {
     super(props);
     this.formInput = [
@@ -24,8 +24,8 @@ export default class CpsProgressNote extends React.Component {
         segment: 'PRIMARY QUESTION',
         show: !false,
         question: [
-          {key:'patient_mrn_id', title: 'Patient list', flag: 1, val: '', option: []},
-          {key:'mrn_id', hint:'', title: 'MRN', flag: 5, typ: 'text', val: ''},
+          {key:'patient_mrn_id', title: 'Patient list', flag: 1, val: '', option: [] , disabled: true },
+          {key:'mrn_id', hint:'', title: 'MRN', flag: 5, typ: 'text', val: '', disabled: false },
           {key:'cps_date', hint:'date', title: 'Date & time Seen by', open:false, flag: 2, typ: 'date', val: ''},
           {key:'cps_time', hint:'time', title: ' Time', open:false, flag: 2, typ: 'time', val: ''},
 
@@ -68,7 +68,7 @@ export default class CpsProgressNote extends React.Component {
           {key:'other_specify_details', hint:'', title: 'Others, Please specify', flag: 4, typ: 'text', val: ''},
           {key:'others', hint:'', title: null, flag: 3, typ: 'radio', val: '', option: [{id:'Nil',value:'Nil'},{id:'Mild',value:'Mild'},{id:'Moderate',value:'Moderate'},{id:'Severe',value:'Severe'}]},
           {key:'ipsychopathology_remarks', hint:'', title: 'Remark', flag: 4, typ: 'text',line:4, val: ''},
-          {key:'', hint:'', title: null, flag: 5, head:'RISK ASSESSMENT'},
+          {key:'', hint:'', title: null, flag: 5, head:'RISK ASSESSMENT',disabled: true},
           {key:'risk_of_violence', hint:'', title: 'Risk of violence/harm to others', flag: 3, typ: 'radio', val: '', option:[{id:'No',value:'No'},{id:'Low',value:'Low'},{id:'Moderate',value:'Moderate'},{id:'High',value:'High'}]},
           {key:'risk_of_suicide', hint:'', title: 'Risk of sucide', flag: 3, typ: 'radio', val: '', option:[{id:'No',value:'No'},{id:'Low',value:'Low'},{id:'Moderate',value:'Moderate'},{id:'High',value:'High'}]},
           {key:'risk_of_other_deliberate', hint:'', title: 'Risk of deliberate self harm', flag: 3, typ: 'radio', val: '', option:[{id:'No',value:'No'},{id:'Low',value:'Low'},{id:'Moderate',value:'Moderate'},{id:'High',value:'High'}]},
@@ -76,7 +76,7 @@ export default class CpsProgressNote extends React.Component {
           {key:'risk_of_harm', hint:'', title: 'Risk of harm from others / Vulnerability', flag: 3, typ: 'radio', val: '', option:[{id:'No',value:'No'},{id:'Low',value:'Low'},{id:'Moderate',value:'Moderate'},{id:'High',value:'High'}]},
 
           {key:'changes_in_teratment', hint:'', title: 'Changes in treatment at current visit', flag: 4, typ: 'text',line:4, val: ''},
-          {key:'', hint:'', title: null, flag: 5, head:'SIDE EFFECTS'},
+          {key:'', hint:'', title: null, flag: 5, head:'SIDE EFFECTS',disabled: true},
 
           {key:'akathisia', hint:'', title: 'Akathisia', flag: 3, typ: 'radio', val: '', option:[{id:'Absent',value:'Absent'},{id:'Present',value:'Present'}]},
           {key:'acute_dystonia', hint:'', title: 'Acute dystonia', flag: 3, typ: 'radio', val: '', option:[{id:'Absent',value:'Absent'},{id:'Present',value:'Present'}]},
@@ -214,7 +214,7 @@ export default class CpsProgressNote extends React.Component {
   }
 
   componentDidMount(){
-    const {submitCPSData,user} = this.context;
+    const {user} = this.context;
     this.formInput[3].question[0].val = user.user.name;
     this.formInput[3].question[1].val = user.user.role;
     NetInfo.fetch().then(state => {
@@ -310,7 +310,7 @@ export default class CpsProgressNote extends React.Component {
         });
       }
       if (state.isConnected){
-        const {submitCPSData,user} = this.context;
+        const {user} = this.context;
         Http.GET('hospital/getServiceByTeamId?email=' + user.user.email).then(r=>{
           console.log('data received =' + JSON.stringify(r));
           this.formInput[0].question[4].option = [];
@@ -393,7 +393,7 @@ export default class CpsProgressNote extends React.Component {
                         ) :
                         (f.flag == 5) ?
                         (
-                          <FormInput title={f.title} value={f.val} editable={false}
+                          <FormInput title={f.title} value={f.val} disabled={false}
                             selectTextOnFocus={false} action={txt => {
                             this.formInput[i].question[j].val = txt;
                             this.setState({});
@@ -447,7 +447,7 @@ export default class CpsProgressNote extends React.Component {
                         (f.flag == 3) ?
                         (
                           <View style={{flexDirection:'row',marginVertical:5}}>
-                          {f.option.map((obj, k) => {
+                          {f.option.map((obj) => {
                               return <TouchableOpacity
                               onPress={()=>{
                                 console.log(obj);
@@ -489,7 +489,7 @@ export default class CpsProgressNote extends React.Component {
                           <View>
                             <View style={{flexDirection:'row',flexWrap: 'wrap'}}>
                               {
-                                f.option.map((obj, k) => {
+                                f.option.map((obj) => {
                                   return <FormRadioButton
                                     icon={
                                       (this.formInput[i].question[j].val == obj.id) ?

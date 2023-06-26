@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable eqeqeq */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
@@ -125,7 +127,7 @@ export default class WorkAnalysisForm extends React.Component {
             key: 'client_name',
             hint: '',
             title: 'Client name',
-            flag: 0,
+            flag: 11,
             typ: 'text',
             val: '',
           },
@@ -1314,7 +1316,7 @@ export default class WorkAnalysisForm extends React.Component {
   }
 
   submitData() {
-    debugger;
+    // debugger;
     const { submitWorkData, user } = this.context;
     var SEND = {};
     var flag = true;
@@ -1371,7 +1373,7 @@ export default class WorkAnalysisForm extends React.Component {
         //   return {'questions':e.questions,'answer':e.answer.join(','),'comments':e.comments.length <= 1 ? e.comments[0] : e.comments.join(',')};
         // });
         var tmpArr = {};
-        e.question.forEach((obj1, ind1) => {
+        e.question.forEach((obj1) => {
           if (obj1.val != '' || (obj1.title != null && obj1.title.length > 1)) {
             if (!(tmpArr[obj1.grp] && tmpArr[obj1.grp].questions)) {
               tmpArr[obj1.grp] = { 'questions': obj1.title, 'answer': [], 'comments': [] };
@@ -1606,7 +1608,7 @@ export default class WorkAnalysisForm extends React.Component {
         });
 
         if (state.isConnected) {
-          const { submitWorkData, user } = this.context;
+          const { user } = this.context;
           Http.GET('patient-registration/getPatientRegistrationListMobile')
             .then(r => {
               this.formInput[0].question[0].option = [];
@@ -1635,7 +1637,7 @@ export default class WorkAnalysisForm extends React.Component {
               Http._toast(' Patient data has not been loaded');
             });
         } else {
-          const { submitWorkData, user } = this.context;
+          const { user } = this.context;
           AsyncStorage.getItem(
             'patient-registration/getPatientRegistrationListMobile',
           ).then(r => {
@@ -1804,7 +1806,7 @@ export default class WorkAnalysisForm extends React.Component {
                         ) : f.flag == 3 ? (
                           <View
                             style={{ flexDirection: 'row', marginVertical: 5 }}>
-                            {f.option.map((obj, k) => {
+                            {f.option.map((obj) => {
                               return (
                                 <TouchableOpacity
                                   onPress={() => {
@@ -1864,7 +1866,7 @@ export default class WorkAnalysisForm extends React.Component {
                               alignItems: 'center',
                             }}>
                             <Text style={{ flex: 1 }}>{f.text}</Text>
-                            {f.option.map((obj, k) => {
+                            {f.option.map((obj) => {
                               return (
                                 <TouchableOpacity
                                   onPress={() => {
@@ -1916,7 +1918,7 @@ export default class WorkAnalysisForm extends React.Component {
                                 flexDirection: 'row',
                                 alignItems: 'center',
                               }}>
-                              {f.option.map((obj, k) => {
+                              {f.option.map((obj) => {
                                 return (
                                   <TouchableOpacity
                                     onPress={() => {
@@ -1966,7 +1968,7 @@ export default class WorkAnalysisForm extends React.Component {
                           <View>
                             <View
                               style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                              {f.option.map((obj, k) => {
+                              {f.option.map((obj) => {
                                 return (
                                   <FormRadioButton
                                     icon={
@@ -2068,7 +2070,7 @@ export default class WorkAnalysisForm extends React.Component {
                           <View>
                             <View
                               style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                              {f.option.map((obj, k) => {
+                              {f.option.map((obj) => {
                                 return (
                                   <FormRadioButton
                                     icon={
@@ -2138,6 +2140,13 @@ export default class WorkAnalysisForm extends React.Component {
                               </View>
                             ) : null}
                           </View>
+                        ) : (f.flag == 11) ?
+                        (
+                          <FormInput title={f.title} value={f.val} disabled={false}
+                            selectTextOnFocus={false} action={txt => {
+                            this.formInput[i].question[j].val = txt;
+                            this.setState({});
+                          }}/>
                         ) : null}
                       </View>
                     );
