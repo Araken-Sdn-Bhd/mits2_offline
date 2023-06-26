@@ -93,3 +93,39 @@ export function FormRadioButton({icon,action,text}) {
             <Text style={{color:'gray'}}>{text}</Text>
         </TouchableOpacity>;
 }
+export function FormDropdownMulitpleSelect({option,value,action}) {
+    return <MultiSelect
+    style={styles.dropdown}
+    placeholderStyle={styles.placeholderStyle}
+    selectedTextStyle={styles.selectedTextStyle}
+    inputSearchStyle={styles.inputSearchStyle}
+    iconStyle={styles.iconStyle}
+    data={DATA}
+    labelField="label"
+    valueField="value"
+    placeholder="Multi Select item"
+    value={selected}
+    search
+    searchPlaceholder="Search..."
+    onChange={item => {
+        setSelected(item);
+    }}
+    renderLeftIcon={() => (
+        <AntDesign
+            style={styles.icon}
+            color="black"
+            name="Safety"
+            size={20}
+        />
+    )}
+    renderItem={renderDataItem}
+    renderSelectedItem={(item, unSelect) => (
+        <TouchableOpacity onPress={() => unSelect && unSelect(item)}>
+            <View style={styles.selectedStyle}>
+                <Text style={styles.textSelectedStyle}>{item.label}</Text>
+                <AntDesign color="black" name="delete" size={17} />
+            </View>
+        </TouchableOpacity>
+    )}
+/>;
+    }
