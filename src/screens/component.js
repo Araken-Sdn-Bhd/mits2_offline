@@ -4,13 +4,14 @@ import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
 import DatePicker from 'react-native-date-picker';
+import MultiSelect from 'react-native-multiple-select';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export function FormInput({title,value,action,disabled}) {
   return (
     <TextInput
       placeholder={'Enter ' + title}
-      placeholderTextColor={"black"}
+      placeholderTextColor={'black'}
       value={value}
       editable={disabled}
       style={{
@@ -24,7 +25,7 @@ export function FormInput({title,value,action,disabled}) {
         shadowColor:'black',
         textShadowColor:'black',
         textColor:'black',
-        textColor:'#000'
+        textColor:'#000',
       }}
       onChangeText={action}
     />
@@ -64,9 +65,9 @@ export function FormTextArea({title,value,action,line}) {
         numberOfLines={line}
         // placeholder={ (f.hint) ? 'Enter ' + f.hint : (f.title) ? 'Enter ' + f.title : ''}
         value={value}
-        
-        style={{ 
-            
+
+        style={{
+
             color:'black',
             textDecorationColor:'black',
             shadowColor:'black',
@@ -93,39 +94,3 @@ export function FormRadioButton({icon,action,text}) {
             <Text style={{color:'gray'}}>{text}</Text>
         </TouchableOpacity>;
 }
-export function FormDropdownMulitpleSelect({option,value,action}) {
-    return <MultiSelect
-    style={styles.dropdown}
-    placeholderStyle={styles.placeholderStyle}
-    selectedTextStyle={styles.selectedTextStyle}
-    inputSearchStyle={styles.inputSearchStyle}
-    iconStyle={styles.iconStyle}
-    data={DATA}
-    labelField="label"
-    valueField="value"
-    placeholder="Multi Select item"
-    value={selected}
-    search
-    searchPlaceholder="Search..."
-    onChange={item => {
-        setSelected(item);
-    }}
-    renderLeftIcon={() => (
-        <AntDesign
-            style={styles.icon}
-            color="black"
-            name="Safety"
-            size={20}
-        />
-    )}
-    renderItem={renderDataItem}
-    renderSelectedItem={(item, unSelect) => (
-        <TouchableOpacity onPress={() => unSelect && unSelect(item)}>
-            <View style={styles.selectedStyle}>
-                <Text style={styles.textSelectedStyle}>{item.label}</Text>
-                <AntDesign color="black" name="delete" size={17} />
-            </View>
-        </TouchableOpacity>
-    )}
-/>;
-    }

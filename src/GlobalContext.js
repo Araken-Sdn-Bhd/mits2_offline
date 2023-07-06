@@ -46,7 +46,7 @@ class GlobalProvider extends Component {
     console.log('>> ',data);
     return new Promise((resolve,reject)=>{
       if (this.isConnected){
-        Http.POST('se-progress-note/add',data).then(r=>{
+        Http.POST('se-progress-note/addMobile',data).then(r=>{
           console.log(r);
           if (i && i >= 0){
             this.SEP.splice(i,1);
@@ -79,8 +79,7 @@ class GlobalProvider extends Component {
     console.log('>> ',data);
     return new Promise((resolve,reject)=>{
     if (this.isConnected){
-      // http://122.176.47.222:85/mintari2/public/index.php/api/cps-progress-note/add
-      Http.POST('cps-progress-note/add',data).then(r=>{
+      Http.POST('cps-progress-note/addMobile',data).then(r=>{
         console.log(r);
         if (i && i >= 0){
           this.CPS.splice(i,1);
@@ -113,8 +112,7 @@ class GlobalProvider extends Component {
     console.log('>> ',data);
     return new Promise((resolve,reject)=>{
     if (this.isConnected){
-      // http://122.176.47.222:85/mintari2/public/index.php/api/cps-progress-note/add
-      Http.POST('work-analysis/add',data).then(r=>{
+      Http.POST('work-analysis/addMobile',data).then(r=>{
         console.log(r);
         if (i && i >= 0){
           this.WA.splice(i,1);

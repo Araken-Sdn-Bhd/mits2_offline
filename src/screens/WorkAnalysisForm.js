@@ -21,6 +21,7 @@ import {
   FormRadioButton,
   FormTextArea,
 } from './component';
+import MultiSelect from 'react-native-multiple-select';
 import NetInfo from '@react-native-community/netinfo';
 import Http from '../common/http';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -28,11 +29,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default class WorkAnalysisForm extends React.Component {
   static contextType = GlobalContext;
   formInput = [];
+  toggleStatus() {
+    this.setState({
+      showTheThing: !this.state.showTheThing,
+    });
+    console.log('toggle button handler: ' + this.state.showTheThing);
+  }
+  toggleStatus2() {
+    this.setState({
+      showTheThing2: !this.state.showTheThing2,
+    });
+    console.log('toggle button handler: ' + this.state.showTheThing2);
+  }
   constructor(props) {
     super(props);
     this.loadForm();
     this.state = {
       loading: false,
+      showTheThing: false,
+      showTheThing2: false,
     };
     this.submitData = this.submitData.bind(this);
   }
@@ -1264,7 +1279,42 @@ export default class WorkAnalysisForm extends React.Component {
           {
             key: 'type_diagnosis_id',
             title: 'Type of diagnosis',
-            flag: 1,
+            flag: 12,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'add_diagnosis_type1',
+            title: 'Additional diagnosis 1',
+            flag: 13,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'add_diagnosis_type2',
+            title: 'Additional diagnosis 2',
+            flag: 14,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'diagnosis_type3',
+            title: 'Additional diagnosis 3',
+            flag: 15,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'diagnosis_type4',
+            title: 'Additional diagnosis 4',
+            flag: 16,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'diagnosis_type5',
+            title: 'Additional diagnosis 5',
+            flag: 17,
             val: '',
             option: [],
           },
@@ -1283,6 +1333,21 @@ export default class WorkAnalysisForm extends React.Component {
               sel_val: '',
               code_id: 0,
               sub_code_id: 0,
+              additional_code_id1: 0,
+              additional_sel_val1: '',
+              additional_sub_code_id1: 0,
+              additional_code_id2: 0,
+              additional_sel_val2: '',
+              additional_sub_code_id2: 0,
+              additional_code_id3: 0,
+              additional_sel_val3: '',
+              additional_sub_code_id3: 0,
+              additional_code_id4: 0,
+              additional_sel_val4: '',
+              additional_sub_code_id4: 0,
+              additional_code_id5: 0,
+              additional_sel_val5: '',
+              additional_sub_code_id5: 0,
               services_id: 0,
             },
             otherData: { icd9: [], icd10: [], external: [], assistance: [] },
@@ -1410,11 +1475,36 @@ export default class WorkAnalysisForm extends React.Component {
             if (f.val == 'clinical') {
               SEND.code_id = f.otherValues.code_id;
               SEND.sub_code_id = f.otherValues.sub_code_id;
+              SEND.additional_code_id1 = f.otherValues.additional_code_id1;
+              SEND.additional_sub_code_id1 =
+                f.otherValues.additional_sub_code_id1;
+              SEND.additional_code_id2 = f.otherValues.additional_code_id2;
+              SEND.additional_sub_code_id2 =
+                f.otherValues.additional_sub_code_id2;
+              SEND.additional_code_id3 = f.otherValues.additional_code_id3;
+              SEND.additional_sub_code_id3 =
+                f.otherValues.additional_sub_code_id3;
+              SEND.additional_code_id4 = f.otherValues.additional_code_id4;
+              SEND.additional_sub_code_id4 =
+                f.otherValues.additional_sub_code_id4;
+              SEND.additional_code_id5 = f.otherValues.additional_code_id5;
+              SEND.additional_sub_code_id5 =
+                f.otherValues.additional_sub_code_id5;
               SEND.services_id = '';
             } else {
               SEND.services_id = f.otherValues.service_id;
               SEND.code_id = '';
               SEND.sub_code_id = '';
+              SEND.additional_code_id1 = '';
+              SEND.additional_sub_code_id1 = '';
+              SEND.additional_code_id2 = '';
+              SEND.additional_sub_code_id2 = '';
+              SEND.additional_code_id3 = '';
+              SEND.additional_sub_code_id3 = '';
+              SEND.additional_code_id4 = '';
+              SEND.additional_sub_code_id4 = '';
+              SEND.additional_code_id5 = '';
+              SEND.additional_sub_code_id5 = '';
             }
             // SEND.code_id = f.otherValues.code_id;
             // SEND.sub_code_id = f.otherValues.sub_code_id;
@@ -1483,21 +1573,23 @@ export default class WorkAnalysisForm extends React.Component {
             'section_value',
           ],
           ['diagnosis/getIcd10codeList2', 3, 1, 'id', 'section_value'],
+          ['diagnosis/getIcd10codeList2', 3, 2, 'id', 'section_value'],
+          ['diagnosis/getIcd10codeList2', 3, 3, 'id', 'section_value'],
+          ['diagnosis/getIcd10codeList2', 3, 4, 'id', 'section_value'],
+          ['diagnosis/getIcd10codeList2', 3, 5, 'id', 'section_value'],
+          ['diagnosis/getIcd10codeList2', 3, 6, 'id', 'section_value'],
           [
             'general-setting/list?section=complexity-of-service',
             3,
-            3,
+            8,
             'id',
             'section_value',
           ],
-          ['general-setting/list?section=outcome', 3, 4, 'id', 'section_value'],
+          ['general-setting/list?section=outcome', 3, 9, 'id', 'section_value'],
 
           ['address/list', 0, 5, 'id', 'state_name'],
           ['address/getAllCityList', 0, 6, 'post_id', 'city_name', 'id'],
           ['address/stateWisePostcodeList_', 0, 7, 'id', 'postcode', 'id'],
-          // ['address/list',0,5,'id','state_name'],
-          // ['address/stateWisePostcodeList_',0,6,'id','city_name'],
-          // ['address/stateWisePostcodeList_',0,7,'id','postcode'],
         ].forEach(dd => {
           if (state.isConnected) {
             Http.GET(dd[0])
@@ -1567,14 +1659,14 @@ export default class WorkAnalysisForm extends React.Component {
           if (state.isConnected) {
             Http.GET(dd[0])
               .then(r => {
-                this.formInput[3].question[2].otherData[dd[1]] = [];
+                this.formInput[3].question[7].otherData[dd[1]] = [];
                 console.log(r);
                 if (r.code == 200) {
-                  this.formInput[3].question[2].otherData[dd[1]] = r.list;
+                  this.formInput[3].question[7].otherData[dd[1]] = r.list;
                   AsyncStorage.setItem(
                     dd[0],
                     JSON.stringify(
-                      this.formInput[3].question[2].otherData[dd[1]],
+                      this.formInput[3].question[7].otherData[dd[1]],
                     ),
                   );
                   this.setState({});
@@ -1715,7 +1807,12 @@ export default class WorkAnalysisForm extends React.Component {
                           marginTop: f.title ? 10 : 3,
                           marginHorizontal: 5,
                         }}>
-                        {f.title ? (
+                        {f.title &&
+                          f.flag != 13 &&
+                          f.flag != 14 &&
+                          f.flag != 15 &&
+                          f.flag != 16 &&
+                          f.flag != 17 ? (
                           <Text
                             style={{
                               fontSize: 15,
@@ -1992,6 +2089,7 @@ export default class WorkAnalysisForm extends React.Component {
                               //otherValues:{code_id:0,sub_code_id:0}, otherData:{icd9:[],icd10:[]} :
                               this.formInput[i].question[j].val ==
                                 'clinical' ? (
+                                <View>
                                 <View
                                   style={{ flexDirection: 'row', marginTop: 10 }}>
                                   <View style={{ flex: 1 }}>
@@ -2031,6 +2129,293 @@ export default class WorkAnalysisForm extends React.Component {
                                       }}
                                     />
                                   </View>
+                                </View>
+                                <View>
+                                      <TouchableOpacity
+                                        style={{
+                                          backgroundColor: '#EDBC40',
+                                          borderRadius: 2,
+                                          padding: 2,
+                                          margin: 2,
+                                        }}
+                                        onPress={() => this.toggleStatus2()}>
+                                        <Text
+                                          style={{
+                                            textAlign: 'center',
+                                            color: 'white',
+                                            fontSize: 20,
+                                            fontWeight: 'bold',
+                                            marginBottom: 2,
+                                          }}>
+                                          +
+                                        </Text>
+                                      </TouchableOpacity>
+                                    </View>
+                                    {this.state.showTheThing2 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 code 1
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd9}
+                                            value={
+                                              f.otherValues.additional_code_id1
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_code_id1 =
+                                                item.id;
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sel_val1 =
+                                                item.icd_category_code;
+                                              this.setState({});
+                                            }}
+                                          />
+                                        </View>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 sub code 1
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues
+                                                  .additional_sel_val1 ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={
+                                              f.otherValues
+                                                .additional_sub_code_id1
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sub_code_id1 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing2 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 code 2
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd9}
+                                            value={
+                                              f.otherValues.additional_code_id2
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_code_id2 =
+                                                item.id;
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sel_val2 =
+                                                item.icd_category_code;
+                                              this.setState({});
+                                            }}
+                                          />
+                                        </View>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 sub code 2
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues
+                                                  .additional_sel_val2 ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={
+                                              f.otherValues
+                                                .additional_sub_code_id2
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sub_code_id2 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing2 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 code 3
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd9}
+                                            value={
+                                              f.otherValues.additional_code_id3
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_code_id3 =
+                                                item.id;
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sel_val3 =
+                                                item.icd_category_code;
+                                              this.setState({});
+                                            }}
+                                          />
+                                        </View>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 sub code 3
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues
+                                                  .additional_sel_val3 ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={
+                                              f.otherValues
+                                                .additional_sub_code_id3
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sub_code_id3 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing2 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 code 4
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd9}
+                                            value={
+                                              f.otherValues.additional_code_id4
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_code_id4 =
+                                                item.id;
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sel_val4 =
+                                                item.icd_category_code;
+                                              this.setState({});
+                                            }}
+                                          />
+                                        </View>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 sub code 4
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues
+                                                  .additional_sel_val4 ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={
+                                              f.otherValues
+                                                .additional_sub_code_id4
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sub_code_id4 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing2 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 code 5
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd9}
+                                            value={
+                                              f.otherValues.additional_code_id5
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_code_id5 =
+                                                item.id;
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sel_val5 =
+                                                item.icd_category_code;
+                                              this.setState({});
+                                            }}
+                                          />
+                                        </View>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 sub code 5
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues
+                                                  .additional_sel_val5 ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={
+                                              f.otherValues
+                                                .additional_sub_code_id5
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sub_code_id5 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
                                 </View>
                               ) : this.formInput[i].question[j].val ==
                                 'assisstance' ? (
@@ -2147,6 +2532,203 @@ export default class WorkAnalysisForm extends React.Component {
                             this.formInput[i].question[j].val = txt;
                             this.setState({});
                           }}/>
+                        ) : f.flag == 12 ? (
+                          <>
+                            <FormDropdown
+                              option={f.option}
+                              value={f.val}
+                              action={item => {
+                                if (i == 0 && j == 0) {
+                                  console.log();
+                                  this.formInput[0].question[1].val =
+                                    item.patient_mrn;
+                                  this.formInput[0].question[2].val =
+                                    item.section_value;
+                                }
+                                this.formInput[i].question[j].val = item.id;
+                                this.setState({});
+                              }}
+                            />
+                            <TouchableOpacity
+                              style={{
+                                backgroundColor: '#EDBC40',
+                                borderRadius: 2,
+                                padding: 2,
+                                margin: 2,
+                              }}
+                              onPress={() => this.toggleStatus()}>
+                              <Text
+                                style={{
+                                  textAlign: 'center',
+                                  color: 'white',
+                                  fontSize: 20,
+                                  fontWeight: 'bold',
+                                  marginBottom: 2,
+                                }}>
+                                +
+                              </Text>
+                            </TouchableOpacity>
+                          </>
+                        ) : f.flag == 13 ? (
+                          <>
+                            {this.state.showTheThing && (
+                              <>
+                                <Text
+                                  style={{
+                                    fontSize: 15,
+                                    fontWeight: 'bold',
+                                    color: 'gray',
+                                    marginBottom: 2,
+                                  }}>
+                                  {f.title}
+                                </Text>
+                                <FormDropdown
+                                  option={f.option}
+                                  value={f.val}
+                                  action={item => {
+                                    if (i == 0 && j == 0) {
+                                      console.log();
+                                      this.formInput[0].question[1].val =
+                                        item.patient_mrn;
+                                      this.formInput[0].question[2].val =
+                                        item.section_value;
+                                    }
+                                    this.formInput[i].question[j].val =
+                                      item.id;
+                                    this.setState({});
+                                  }}
+                                />
+                              </>
+                            )}
+                          </>
+                        ) : f.flag == 14 ? (
+                          <>
+                            {this.state.showTheThing && (
+                              <>
+                                <Text
+                                  style={{
+                                    fontSize: 15,
+                                    fontWeight: 'bold',
+                                    color: 'gray',
+                                    marginBottom: 2,
+                                  }}>
+                                  {f.title}
+                                </Text>
+                                <FormDropdown
+                                  option={f.option}
+                                  value={f.val}
+                                  action={item => {
+                                    if (i == 0 && j == 0) {
+                                      console.log();
+                                      this.formInput[0].question[1].val =
+                                        item.patient_mrn;
+                                      this.formInput[0].question[2].val =
+                                        item.section_value;
+                                    }
+                                    this.formInput[i].question[j].val =
+                                      item.id;
+                                    this.setState({});
+                                  }}
+                                />
+                              </>
+                            )}
+                          </>
+                        ) : f.flag == 15 ? (
+                          <>
+                            {this.state.showTheThing && (
+                              <>
+                                <Text
+                                  style={{
+                                    fontSize: 15,
+                                    fontWeight: 'bold',
+                                    color: 'gray',
+                                    marginBottom: 2,
+                                  }}>
+                                  {f.title}
+                                </Text>
+                                <FormDropdown
+                                  option={f.option}
+                                  value={f.val}
+                                  action={item => {
+                                    if (i == 0 && j == 0) {
+                                      console.log();
+                                      this.formInput[0].question[1].val =
+                                        item.patient_mrn;
+                                      this.formInput[0].question[2].val =
+                                        item.section_value;
+                                    }
+                                    this.formInput[i].question[j].val =
+                                      item.id;
+                                    this.setState({});
+                                  }}
+                                />
+                              </>
+                            )}
+                          </>
+                        ) : f.flag == 16 ? (
+                          <>
+                            {this.state.showTheThing && (
+                              <>
+                                <Text
+                                  style={{
+                                    fontSize: 15,
+                                    fontWeight: 'bold',
+                                    color: 'gray',
+                                    marginBottom: 2,
+                                  }}>
+                                  {f.title}
+                                </Text>
+                                <FormDropdown
+                                  option={f.option}
+                                  value={f.val}
+                                  action={item => {
+                                    if (i == 0 && j == 0) {
+                                      console.log();
+                                      this.formInput[0].question[1].val =
+                                        item.patient_mrn;
+                                      this.formInput[0].question[2].val =
+                                        item.section_value;
+                                    }
+                                    this.formInput[i].question[j].val =
+                                      item.id;
+                                    this.setState({});
+                                  }}
+                                />
+                              </>
+                            )}
+                          </>
+                        ) : f.flag == 17 ? (
+                          <>
+                            {this.state.showTheThing && (
+                              <>
+                                <Text
+                                  style={{
+                                    fontSize: 15,
+                                    fontWeight: 'bold',
+                                    color: 'gray',
+                                    marginBottom: 2,
+                                  }}>
+                                  {f.title}
+                                </Text>
+                                <FormDropdown
+                                  option={f.option}
+                                  value={f.val}
+                                  action={item => {
+                                    if (i == 0 && j == 0) {
+                                      console.log();
+                                      this.formInput[0].question[1].val =
+                                        item.patient_mrn;
+                                      this.formInput[0].question[2].val =
+                                        item.section_value;
+                                    }
+                                    this.formInput[i].question[j].val =
+                                      item.id;
+                                    this.setState({});
+                                  }}
+                                />
+                              </>
+                            )}
+                          </>
                         ) : null}
                       </View>
                     );
