@@ -1,12 +1,14 @@
+/* eslint-disable no-shadow */
+/* eslint-disable eqeqeq */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import {ScrollView, View, TextInput} from 'react-native';
-import {Text} from 'react-native-paper';
+import { ScrollView, View, TextInput } from 'react-native';
+import { Text } from 'react-native-paper';
 import GlobalContext from '../GlobalContext';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Dropdown} from 'react-native-element-dropdown';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Dropdown } from 'react-native-element-dropdown';
 import DatePicker from 'react-native-date-picker';
 import RadioForm, {
   RadioButton,
@@ -19,6 +21,7 @@ import {
   FormRadioButton,
   FormTextArea,
 } from './component';
+import MultiSelect from 'react-native-multiple-select';
 import NetInfo from '@react-native-community/netinfo';
 import Http from '../common/http';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,11 +29,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default class WorkAnalysisForm extends React.Component {
   static contextType = GlobalContext;
   formInput = [];
+  toggleStatus() {
+    this.setState({
+      showTheThing: !this.state.showTheThing,
+    });
+    console.log('toggle button handler: ' + this.state.showTheThing);
+  }
+  toggleStatus2() {
+    this.setState({
+      showTheThing2: !this.state.showTheThing2,
+    });
+    console.log('toggle button handler: ' + this.state.showTheThing2);
+  }
   constructor(props) {
     super(props);
     this.loadForm();
     this.state = {
       loading: false,
+      showTheThing: false,
+      showTheThing2: false,
     };
     this.submitData = this.submitData.bind(this);
   }
@@ -80,14 +97,14 @@ export default class WorkAnalysisForm extends React.Component {
             typ: 'text',
             val: '',
           },
-          {key: 'state_id', title: 'State', flag: 1, val: '', option: []},
+          { key: 'state_id', title: 'State', flag: 1, val: '', option: [] },
           {
             key: 'city_id',
             title: 'City',
             flag: 1,
             val: '',
             option: [],
-            deps: {row: 0, col: 5, match: 'id'},
+            deps: { row: 0, col: 5, match: 'id' },
           },
           {
             key: 'postcode_id',
@@ -95,7 +112,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 1,
             val: '',
             option: [],
-            deps: {row: 0, col: 6, match: 'section_name'},
+            deps: { row: 0, col: 6, match: 'section_name' },
           },
           {
             key: 'supervisor_name',
@@ -125,7 +142,7 @@ export default class WorkAnalysisForm extends React.Component {
             key: 'client_name',
             hint: '',
             title: 'Client name',
-            flag: 0,
+            flag: 11,
             typ: 'text',
             val: '',
           },
@@ -143,9 +160,9 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 1,
             val: '',
             option: [
-              {id: 'Per Hour', section_value: 'Per Hour'},
-              {id: 'Per Day', section_value: 'Per Day'},
-              {id: 'Per Month', section_value: 'Per Month'},
+              { id: 'Per Hour', section_value: 'Per Hour' },
+              { id: 'Per Day', section_value: 'Per Day' },
+              { id: 'Per Month', section_value: 'Per Month' },
             ],
           },
           {
@@ -164,8 +181,8 @@ export default class WorkAnalysisForm extends React.Component {
             typ: 'radio',
             val: '',
             option: [
-              {id: 'yes', value: 'yes'},
-              {id: 'No', value: 'No'},
+              { id: 'yes', value: 'yes' },
+              { id: 'No', value: 'No' },
             ],
             subQus: [
               {
@@ -174,9 +191,9 @@ export default class WorkAnalysisForm extends React.Component {
                 flag: 1,
                 val: '',
                 option: [
-                  {id: 'Per Hour', section_value: 'Per Hour'},
-                  {id: 'Per Day', section_value: 'Per Hour'},
-                  {id: 'Per Month', section_value: 'Per Hour'},
+                  { id: 'Per Hour', section_value: 'Per Hour' },
+                  { id: 'Per Day', section_value: 'Per Hour' },
+                  { id: 'Per Month', section_value: 'Per Hour' },
                 ],
               },
               {
@@ -187,7 +204,7 @@ export default class WorkAnalysisForm extends React.Component {
                 typ: 'text',
                 val: '',
               },
-              {key: 'to', hint: '', title: 'To', flag: 0, typ: 'text', val: ''},
+              { key: 'to', hint: '', title: 'To', flag: 0, typ: 'text', val: '' },
               {
                 key: 'on_date',
                 hint: '',
@@ -337,7 +354,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '1',
@@ -348,7 +365,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '1',
@@ -359,7 +376,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '1',
@@ -370,7 +387,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '1',
@@ -394,7 +411,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '2',
@@ -405,7 +422,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '2',
@@ -416,7 +433,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '2',
@@ -440,7 +457,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '3',
@@ -451,7 +468,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '3',
@@ -462,7 +479,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '3',
@@ -473,7 +490,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '3',
@@ -497,7 +514,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '4',
@@ -508,7 +525,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '4',
@@ -519,7 +536,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '4',
@@ -530,7 +547,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '4',
@@ -554,7 +571,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '5',
@@ -565,7 +582,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '5',
@@ -576,7 +593,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '5',
@@ -587,7 +604,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '5',
@@ -611,7 +628,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '6',
@@ -622,7 +639,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '6',
@@ -633,7 +650,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '6',
@@ -644,7 +661,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '6',
@@ -668,7 +685,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '7',
@@ -679,7 +696,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '7',
@@ -690,7 +707,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '7',
@@ -701,7 +718,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '7',
@@ -725,7 +742,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '8',
@@ -736,7 +753,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '8',
@@ -747,7 +764,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '8',
@@ -758,7 +775,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '8',
@@ -782,7 +799,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '9',
@@ -793,7 +810,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '9',
@@ -804,7 +821,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '9',
@@ -815,7 +832,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '9',
@@ -839,7 +856,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '10',
@@ -850,7 +867,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '10',
@@ -861,7 +878,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '10',
@@ -872,7 +889,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '10',
@@ -896,7 +913,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '11',
@@ -907,7 +924,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '11',
@@ -918,7 +935,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '11',
@@ -929,7 +946,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '11',
@@ -953,7 +970,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '12',
@@ -964,7 +981,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '12',
@@ -975,7 +992,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '12',
@@ -999,7 +1016,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '13',
@@ -1010,7 +1027,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '13',
@@ -1021,7 +1038,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '13',
@@ -1045,7 +1062,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '14',
@@ -1056,7 +1073,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '14',
@@ -1067,7 +1084,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '14',
@@ -1078,7 +1095,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '14',
@@ -1102,7 +1119,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '15',
@@ -1113,7 +1130,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '15',
@@ -1124,7 +1141,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '15',
@@ -1135,7 +1152,7 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 6,
             typ: 'radio',
             val: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '15',
@@ -1160,7 +1177,7 @@ export default class WorkAnalysisForm extends React.Component {
             typ: 'radio',
             val: '',
             val2: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '16',
@@ -1172,7 +1189,7 @@ export default class WorkAnalysisForm extends React.Component {
             typ: 'radio',
             val: '',
             val2: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '16',
@@ -1184,7 +1201,7 @@ export default class WorkAnalysisForm extends React.Component {
             typ: 'radio',
             val: '',
             val2: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '16',
@@ -1196,7 +1213,7 @@ export default class WorkAnalysisForm extends React.Component {
             typ: 'radio',
             val: '',
             val2: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '16',
@@ -1208,7 +1225,7 @@ export default class WorkAnalysisForm extends React.Component {
             typ: 'radio',
             val: '',
             val2: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '16',
@@ -1220,7 +1237,7 @@ export default class WorkAnalysisForm extends React.Component {
             typ: 'radio',
             val: '',
             val2: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '16',
@@ -1232,7 +1249,7 @@ export default class WorkAnalysisForm extends React.Component {
             typ: 'radio',
             val: '',
             val2: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
           {
             grp: '16',
@@ -1244,7 +1261,7 @@ export default class WorkAnalysisForm extends React.Component {
             typ: 'radio',
             val: '',
             val2: '',
-            option: [{id: 'Yes', value: 'Yes'}],
+            option: [{ id: 'Yes', value: 'Yes' }],
           },
         ],
       },
@@ -1262,7 +1279,42 @@ export default class WorkAnalysisForm extends React.Component {
           {
             key: 'type_diagnosis_id',
             title: 'Type of diagnosis',
-            flag: 1,
+            flag: 12,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'add_diagnosis_type1',
+            title: 'Additional diagnosis 1',
+            flag: 13,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'add_diagnosis_type2',
+            title: 'Additional diagnosis 2',
+            flag: 14,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'diagnosis_type3',
+            title: 'Additional diagnosis 3',
+            flag: 15,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'diagnosis_type4',
+            title: 'Additional diagnosis 4',
+            flag: 16,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'diagnosis_type5',
+            title: 'Additional diagnosis 5',
+            flag: 17,
             val: '',
             option: [],
           },
@@ -1272,18 +1324,33 @@ export default class WorkAnalysisForm extends React.Component {
             flag: 9,
             val: 'assisstance',
             option: [
-              {id: 'assisstance', section_value: 'Assistant/supervision'},
-              {id: 'clinical', section_value: 'Clinical work'},
-              {id: 'external', section_value: 'External'},
+              { id: 'assisstance', section_value: 'Assistant/supervision' },
+              { id: 'clinical', section_value: 'Clinical work' },
+              { id: 'external', section_value: 'External' },
             ],
-            onchange: {i: 0, j: 0, api: ''},
+            onchange: { i: 0, j: 0, api: '' },
             otherValues: {
               sel_val: '',
               code_id: 0,
               sub_code_id: 0,
+              additional_code_id1: 0,
+              additional_sel_val1: '',
+              additional_sub_code_id1: 0,
+              additional_code_id2: 0,
+              additional_sel_val2: '',
+              additional_sub_code_id2: 0,
+              additional_code_id3: 0,
+              additional_sel_val3: '',
+              additional_sub_code_id3: 0,
+              additional_code_id4: 0,
+              additional_sel_val4: '',
+              additional_sub_code_id4: 0,
+              additional_code_id5: 0,
+              additional_sel_val5: '',
+              additional_sub_code_id5: 0,
               services_id: 0,
             },
-            otherData: {icd9: [], icd10: [], external: [], assistance: []},
+            otherData: { icd9: [], icd10: [], external: [], assistance: [] },
           },
           {
             key: 'complexity_services',
@@ -1292,7 +1359,7 @@ export default class WorkAnalysisForm extends React.Component {
             val: '',
             option: [],
           },
-          {key: 'outcome', title: 'Outcome', flag: 1, val: '', option: []},
+          { key: 'outcome', title: 'Outcome', flag: 1, val: '', option: [] },
         ],
       },
       {
@@ -1314,8 +1381,8 @@ export default class WorkAnalysisForm extends React.Component {
   }
 
   submitData() {
-    debugger;
-    const {submitWorkData, user} = this.context;
+    // debugger;
+    const { submitWorkData, user } = this.context;
     var SEND = {};
     var flag = true;
     var errors = '';
@@ -1371,24 +1438,22 @@ export default class WorkAnalysisForm extends React.Component {
         //   return {'questions':e.questions,'answer':e.answer.join(','),'comments':e.comments.length <= 1 ? e.comments[0] : e.comments.join(',')};
         // });
         var tmpArr = {};
-        e.question.forEach((obj1, ind1)=>{
-          if (obj1.val != '' || ( obj1.title != null && obj1.title.length > 1 )){
-            if (!(tmpArr[obj1.grp] && tmpArr[obj1.grp].questions)){
-                tmpArr[obj1.grp] = {'questions':obj1.title , 'answer':[] , 'comments':[]};
+        e.question.forEach((obj1) => {
+          if (obj1.val != '' || (obj1.title != null && obj1.title.length > 1)) {
+            if (!(tmpArr[obj1.grp] && tmpArr[obj1.grp].questions)) {
+              tmpArr[obj1.grp] = { 'questions': obj1.title, 'answer': [], 'comments': [] };
             }
-            if (obj1.flag == 4)
-              {tmpArr[obj1.grp].comments.push(obj1.val);}
-            else if (obj1.flag == 7)
-              {tmpArr[obj1.grp].comments.push(obj1.val2);}
-              if (obj1.val == 'Yes'){
-                tmpArr[obj1.grp].answer.push(obj1.text);
-             }
+            if (obj1.flag == 4) { tmpArr[obj1.grp].comments.push(obj1.val); }
+            else if (obj1.flag == 7) { tmpArr[obj1.grp].comments.push(obj1.val2); }
+            if (obj1.val == 'Yes') {
+              tmpArr[obj1.grp].answer.push(obj1.text);
+            }
 
           }
         });
 
 
-        SEND.job_specification = Object.values(tmpArr).map(e=>{ return {'questions':e.questions,'answer':e.answer.join(','),'comments': (e.comments.length == 0) ? '' : (e.comments.length <= 1 ? e.comments[0] : e.comments.join(','))}; });
+        SEND.job_specification = Object.values(tmpArr).map(e => { return { 'questions': e.questions, 'answer': e.answer.join(','), 'comments': (e.comments.length == 0) ? '' : (e.comments.length <= 1 ? e.comments[0] : e.comments.join(',')) }; });
         console.log('###', SEND.job_specification);
         return;
       } else if (e.replicate) {
@@ -1410,11 +1475,36 @@ export default class WorkAnalysisForm extends React.Component {
             if (f.val == 'clinical') {
               SEND.code_id = f.otherValues.code_id;
               SEND.sub_code_id = f.otherValues.sub_code_id;
+              SEND.additional_code_id1 = f.otherValues.additional_code_id1;
+              SEND.additional_sub_code_id1 =
+                f.otherValues.additional_sub_code_id1;
+              SEND.additional_code_id2 = f.otherValues.additional_code_id2;
+              SEND.additional_sub_code_id2 =
+                f.otherValues.additional_sub_code_id2;
+              SEND.additional_code_id3 = f.otherValues.additional_code_id3;
+              SEND.additional_sub_code_id3 =
+                f.otherValues.additional_sub_code_id3;
+              SEND.additional_code_id4 = f.otherValues.additional_code_id4;
+              SEND.additional_sub_code_id4 =
+                f.otherValues.additional_sub_code_id4;
+              SEND.additional_code_id5 = f.otherValues.additional_code_id5;
+              SEND.additional_sub_code_id5 =
+                f.otherValues.additional_sub_code_id5;
               SEND.services_id = '';
             } else {
               SEND.services_id = f.otherValues.service_id;
               SEND.code_id = '';
               SEND.sub_code_id = '';
+              SEND.additional_code_id1 = '';
+              SEND.additional_sub_code_id1 = '';
+              SEND.additional_code_id2 = '';
+              SEND.additional_sub_code_id2 = '';
+              SEND.additional_code_id3 = '';
+              SEND.additional_sub_code_id3 = '';
+              SEND.additional_code_id4 = '';
+              SEND.additional_sub_code_id4 = '';
+              SEND.additional_code_id5 = '';
+              SEND.additional_sub_code_id5 = '';
             }
             // SEND.code_id = f.otherValues.code_id;
             // SEND.sub_code_id = f.otherValues.sub_code_id;
@@ -1483,21 +1573,23 @@ export default class WorkAnalysisForm extends React.Component {
             'section_value',
           ],
           ['diagnosis/getIcd10codeList2', 3, 1, 'id', 'section_value'],
+          ['diagnosis/getIcd10codeList2', 3, 2, 'id', 'section_value'],
+          ['diagnosis/getIcd10codeList2', 3, 3, 'id', 'section_value'],
+          ['diagnosis/getIcd10codeList2', 3, 4, 'id', 'section_value'],
+          ['diagnosis/getIcd10codeList2', 3, 5, 'id', 'section_value'],
+          ['diagnosis/getIcd10codeList2', 3, 6, 'id', 'section_value'],
           [
             'general-setting/list?section=complexity-of-service',
             3,
-            3,
+            8,
             'id',
             'section_value',
           ],
-          ['general-setting/list?section=outcome', 3, 4, 'id', 'section_value'],
+          ['general-setting/list?section=outcome', 3, 9, 'id', 'section_value'],
 
           ['address/list', 0, 5, 'id', 'state_name'],
           ['address/getAllCityList', 0, 6, 'post_id', 'city_name', 'id'],
           ['address/stateWisePostcodeList_', 0, 7, 'id', 'postcode', 'id'],
-          // ['address/list',0,5,'id','state_name'],
-          // ['address/stateWisePostcodeList_',0,6,'id','city_name'],
-          // ['address/stateWisePostcodeList_',0,7,'id','postcode'],
         ].forEach(dd => {
           if (state.isConnected) {
             Http.GET(dd[0])
@@ -1506,7 +1598,7 @@ export default class WorkAnalysisForm extends React.Component {
                 if (r.code == 200) {
                   this.formInput[dd[1]].question[dd[2]].option = r.list.map(
                     e => {
-                      var tmp = {id: e[dd['3']], section_value: e[dd['4']]};
+                      var tmp = { id: e[dd['3']], section_value: e[dd['4']] };
                       if (dd['5'] != null && dd['5'] != undefined) {
                         tmp.deps = e[dd['5']];
                       }
@@ -1525,7 +1617,7 @@ export default class WorkAnalysisForm extends React.Component {
                 } else {
                   Http._toast(
                     this.formInput[dd[1]].question[dd[2]].title +
-                      ' has not been loaded',
+                    ' has not been loaded',
                   );
                 }
               })
@@ -1533,7 +1625,7 @@ export default class WorkAnalysisForm extends React.Component {
                 console.log(e);
                 Http._toast(
                   this.formInput[dd[1]].question[dd[2]].title +
-                    ' has not been loaded',
+                  ' has not been loaded',
                 );
               });
           } else {
@@ -1567,23 +1659,23 @@ export default class WorkAnalysisForm extends React.Component {
           if (state.isConnected) {
             Http.GET(dd[0])
               .then(r => {
-                this.formInput[3].question[2].otherData[dd[1]] = [];
+                this.formInput[3].question[7].otherData[dd[1]] = [];
                 console.log(r);
                 if (r.code == 200) {
-                  this.formInput[3].question[2].otherData[dd[1]] = r.list;
+                  this.formInput[3].question[7].otherData[dd[1]] = r.list;
                   AsyncStorage.setItem(
                     dd[0],
                     JSON.stringify(
-                      this.formInput[3].question[2].otherData[dd[1]],
+                      this.formInput[3].question[7].otherData[dd[1]],
                     ),
                   );
                   this.setState({});
                 } else {
                   Http._toast(
                     this.formInput[3].question[2].title +
-                      ' [ ' +
-                      dd[1] +
-                      ' ] has not been loaded',
+                    ' [ ' +
+                    dd[1] +
+                    ' ] has not been loaded',
                   );
                 }
               })
@@ -1591,9 +1683,9 @@ export default class WorkAnalysisForm extends React.Component {
                 console.log(e);
                 Http._toast(
                   this.formInput[3].question[2].title +
-                    ' [ ' +
-                    dd[1] +
-                    ' ] has not been loaded',
+                  ' [ ' +
+                  dd[1] +
+                  ' ] has not been loaded',
                 );
               });
           } else {
@@ -1608,7 +1700,7 @@ export default class WorkAnalysisForm extends React.Component {
         });
 
         if (state.isConnected) {
-          const {submitWorkData, user} = this.context;
+          const { user } = this.context;
           Http.GET('patient-registration/getPatientRegistrationListMobile')
             .then(r => {
               this.formInput[0].question[0].option = [];
@@ -1637,7 +1729,7 @@ export default class WorkAnalysisForm extends React.Component {
               Http._toast(' Patient data has not been loaded');
             });
         } else {
-          const {submitWorkData, user} = this.context;
+          const { user } = this.context;
           AsyncStorage.getItem(
             'patient-registration/getPatientRegistrationListMobile',
           ).then(r => {
@@ -1656,11 +1748,11 @@ export default class WorkAnalysisForm extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <View style={{marginVertical: 20, flexDirection: 'row'}}>
+      <View style={{ flex: 1 }}>
+        <View style={{ marginVertical: 20, flexDirection: 'row' }}>
           <TouchableOpacity
             onPress={() => {
-              const {navigation} = this.props;
+              const { navigation } = this.props;
               navigation.pop();
             }}>
             <Icon name="chevron-back-outline" style={{}} size={30} />
@@ -1679,7 +1771,7 @@ export default class WorkAnalysisForm extends React.Component {
         <ScrollView>
           {this.formInput.map((e, i) => {
             return (
-              <View style={{margin: 10}}>
+              <View style={{ margin: 10 }}>
                 <TouchableOpacity
                   onPress={() => {
                     this.formInput[i].show = !this.formInput[i].show;
@@ -1703,7 +1795,7 @@ export default class WorkAnalysisForm extends React.Component {
                   </Text>
                   <Icon
                     name={e.show ? 'remove-outline' : 'add-outline'}
-                    style={{color: 'white'}}
+                    style={{ color: 'white' }}
                     size={25}
                   />
                 </TouchableOpacity>
@@ -1715,7 +1807,12 @@ export default class WorkAnalysisForm extends React.Component {
                           marginTop: f.title ? 10 : 3,
                           marginHorizontal: 5,
                         }}>
-                        {f.title ? (
+                        {f.title &&
+                          f.flag != 13 &&
+                          f.flag != 14 &&
+                          f.flag != 15 &&
+                          f.flag != 16 &&
+                          f.flag != 17 ? (
                           <Text
                             style={{
                               fontSize: 15,
@@ -1740,14 +1837,14 @@ export default class WorkAnalysisForm extends React.Component {
                           <FormDropdown
                             option={
                               f.deps != undefined &&
-                              f.deps != null &&
-                              f.deps.col
+                                f.deps != null &&
+                                f.deps.col
                                 ? f.option.filter(
-                                    ee =>
-                                      this.formInput[f.deps.row].question[
-                                        f.deps.col
-                                      ].val == ee.deps,
-                                  )
+                                  ee =>
+                                    this.formInput[f.deps.row].question[
+                                      f.deps.col
+                                    ].val == ee.deps,
+                                )
                                 : f.option
                             }
                             value={f.val}
@@ -1778,7 +1875,7 @@ export default class WorkAnalysisForm extends React.Component {
                               borderRadius: 10,
                               padding: 15,
                             }}>
-                            <Text style={{color: 'gray'}}>
+                            <Text style={{ color: 'gray' }}>
                               {' '}
                               {this.formInput[i].question[j].val == ''
                                 ? 'Select' + f.title
@@ -1805,8 +1902,8 @@ export default class WorkAnalysisForm extends React.Component {
                           </TouchableOpacity>
                         ) : f.flag == 3 ? (
                           <View
-                            style={{flexDirection: 'row', marginVertical: 5}}>
-                            {f.option.map((obj, k) => {
+                            style={{ flexDirection: 'row', marginVertical: 5 }}>
+                            {f.option.map((obj) => {
                               return (
                                 <TouchableOpacity
                                   onPress={() => {
@@ -1827,12 +1924,12 @@ export default class WorkAnalysisForm extends React.Component {
                                     size={18}
                                     name={
                                       this.formInput[i].question[j].val ==
-                                      obj.value
+                                        obj.value
                                         ? 'radio-button-on-outline'
                                         : 'radio-button-off-outline'
                                     }
                                   />
-                                  <Text style={{color: 'gray'}}>
+                                  <Text style={{ color: 'gray' }}>
                                     {obj.value}
                                   </Text>
                                 </TouchableOpacity>
@@ -1865,8 +1962,8 @@ export default class WorkAnalysisForm extends React.Component {
                               marginVertical: 5,
                               alignItems: 'center',
                             }}>
-                            <Text style={{flex: 1}}>{f.text}</Text>
-                            {f.option.map((obj, k) => {
+                            <Text style={{ flex: 1 }}>{f.text}</Text>
+                            {f.option.map((obj) => {
                               return (
                                 <TouchableOpacity
                                   onPress={() => {
@@ -1898,12 +1995,12 @@ export default class WorkAnalysisForm extends React.Component {
                                     size={18}
                                     name={
                                       this.formInput[i].question[j].val ==
-                                      obj.value
+                                        obj.value
                                         ? 'radio-button-on-outline'
                                         : 'radio-button-off-outline'
                                     }
                                   />
-                                  <Text style={{color: 'gray'}}>
+                                  <Text style={{ color: 'gray' }}>
                                     {obj.value}
                                   </Text>
                                 </TouchableOpacity>
@@ -1911,14 +2008,14 @@ export default class WorkAnalysisForm extends React.Component {
                             })}
                           </View>
                         ) : f.flag == 7 ? (
-                          <View style={{marginVertical: 5}}>
-                            <Text style={{flex: 1}}>{f.text}</Text>
+                          <View style={{ marginVertical: 5 }}>
+                            <Text style={{ flex: 1 }}>{f.text}</Text>
                             <View
                               style={{
                                 flexDirection: 'row',
                                 alignItems: 'center',
                               }}>
-                              {f.option.map((obj, k) => {
+                              {f.option.map((obj) => {
                                 return (
                                   <TouchableOpacity
                                     onPress={() => {
@@ -1943,12 +2040,12 @@ export default class WorkAnalysisForm extends React.Component {
                                       size={18}
                                       name={
                                         this.formInput[i].question[j].val ==
-                                        obj.value
+                                          obj.value
                                           ? 'radio-button-on-outline'
                                           : 'radio-button-off-outline'
                                       }
                                     />
-                                    <Text style={{color: 'gray'}}>
+                                    <Text style={{ color: 'gray' }}>
                                       {obj.value}
                                     </Text>
                                   </TouchableOpacity>
@@ -1967,13 +2064,13 @@ export default class WorkAnalysisForm extends React.Component {
                         ) : f.flag == 9 ? (
                           <View>
                             <View
-                              style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                              {f.option.map((obj, k) => {
+                              style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                              {f.option.map((obj) => {
                                 return (
                                   <FormRadioButton
                                     icon={
                                       this.formInput[i].question[j].val ==
-                                      obj.id
+                                        obj.id
                                         ? 'radio-button-on-outline'
                                         : 'radio-button-off-outline'
                                     }
@@ -1991,11 +2088,12 @@ export default class WorkAnalysisForm extends React.Component {
                             {
                               //otherValues:{code_id:0,sub_code_id:0}, otherData:{icd9:[],icd10:[]} :
                               this.formInput[i].question[j].val ==
-                              'clinical' ? (
+                                'clinical' ? (
+                                <View>
                                 <View
-                                  style={{flexDirection: 'row', marginTop: 10}}>
-                                  <View style={{flex: 1}}>
-                                    <Text style={{fontWeight: 'bold'}}>
+                                  style={{ flexDirection: 'row', marginTop: 10 }}>
+                                  <View style={{ flex: 1 }}>
+                                    <Text style={{ fontWeight: 'bold' }}>
                                       ICD 9 code
                                     </Text>
                                     <FormDropdown
@@ -2013,8 +2111,8 @@ export default class WorkAnalysisForm extends React.Component {
                                       }}
                                     />
                                   </View>
-                                  <View style={{flex: 1, marginLeft: 5}}>
-                                    <Text style={{fontWeight: 'bold'}}>
+                                  <View style={{ flex: 1, marginLeft: 5 }}>
+                                    <Text style={{ fontWeight: 'bold' }}>
                                       ICD 9 sub code
                                     </Text>
                                     <FormDropdown
@@ -2032,10 +2130,297 @@ export default class WorkAnalysisForm extends React.Component {
                                     />
                                   </View>
                                 </View>
+                                <View>
+                                      <TouchableOpacity
+                                        style={{
+                                          backgroundColor: '#EDBC40',
+                                          borderRadius: 2,
+                                          padding: 2,
+                                          margin: 2,
+                                        }}
+                                        onPress={() => this.toggleStatus2()}>
+                                        <Text
+                                          style={{
+                                            textAlign: 'center',
+                                            color: 'white',
+                                            fontSize: 20,
+                                            fontWeight: 'bold',
+                                            marginBottom: 2,
+                                          }}>
+                                          +
+                                        </Text>
+                                      </TouchableOpacity>
+                                    </View>
+                                    {this.state.showTheThing2 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 code 1
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd9}
+                                            value={
+                                              f.otherValues.additional_code_id1
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_code_id1 =
+                                                item.id;
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sel_val1 =
+                                                item.icd_category_code;
+                                              this.setState({});
+                                            }}
+                                          />
+                                        </View>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 sub code 1
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues
+                                                  .additional_sel_val1 ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={
+                                              f.otherValues
+                                                .additional_sub_code_id1
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sub_code_id1 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing2 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 code 2
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd9}
+                                            value={
+                                              f.otherValues.additional_code_id2
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_code_id2 =
+                                                item.id;
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sel_val2 =
+                                                item.icd_category_code;
+                                              this.setState({});
+                                            }}
+                                          />
+                                        </View>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 sub code 2
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues
+                                                  .additional_sel_val2 ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={
+                                              f.otherValues
+                                                .additional_sub_code_id2
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sub_code_id2 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing2 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 code 3
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd9}
+                                            value={
+                                              f.otherValues.additional_code_id3
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_code_id3 =
+                                                item.id;
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sel_val3 =
+                                                item.icd_category_code;
+                                              this.setState({});
+                                            }}
+                                          />
+                                        </View>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 sub code 3
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues
+                                                  .additional_sel_val3 ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={
+                                              f.otherValues
+                                                .additional_sub_code_id3
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sub_code_id3 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing2 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 code 4
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd9}
+                                            value={
+                                              f.otherValues.additional_code_id4
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_code_id4 =
+                                                item.id;
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sel_val4 =
+                                                item.icd_category_code;
+                                              this.setState({});
+                                            }}
+                                          />
+                                        </View>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 sub code 4
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues
+                                                  .additional_sel_val4 ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={
+                                              f.otherValues
+                                                .additional_sub_code_id4
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sub_code_id4 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing2 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 code 5
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd9}
+                                            value={
+                                              f.otherValues.additional_code_id5
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_code_id5 =
+                                                item.id;
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sel_val5 =
+                                                item.icd_category_code;
+                                              this.setState({});
+                                            }}
+                                          />
+                                        </View>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            Additional ICD 9 sub code 5
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues
+                                                  .additional_sel_val5 ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={
+                                              f.otherValues
+                                                .additional_sub_code_id5
+                                            }
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.additional_sub_code_id5 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                </View>
                               ) : this.formInput[i].question[j].val ==
                                 'assisstance' ? (
-                                <View style={{marginTop: 10}}>
-                                  <Text style={{fontWeight: 'bold'}}>
+                                <View style={{ marginTop: 10 }}>
+                                  <Text style={{ fontWeight: 'bold' }}>
                                     Services
                                   </Text>
                                   <FormDropdown
@@ -2049,8 +2434,8 @@ export default class WorkAnalysisForm extends React.Component {
                                   />
                                 </View>
                               ) : (
-                                <View style={{marginTop: 10}}>
-                                  <Text style={{fontWeight: 'bold'}}>
+                                <View style={{ marginTop: 10 }}>
+                                  <Text style={{ fontWeight: 'bold' }}>
                                     Services
                                   </Text>
                                   <FormDropdown
@@ -2069,13 +2454,13 @@ export default class WorkAnalysisForm extends React.Component {
                         ) : f.flag == 10 ? (
                           <View>
                             <View
-                              style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                              {f.option.map((obj, k) => {
+                              style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                              {f.option.map((obj) => {
                                 return (
                                   <FormRadioButton
                                     icon={
                                       this.formInput[i].question[j].val ==
-                                      obj.id
+                                        obj.id
                                         ? 'radio-button-on-outline'
                                         : 'radio-button-off-outline'
                                     }
@@ -2140,6 +2525,210 @@ export default class WorkAnalysisForm extends React.Component {
                               </View>
                             ) : null}
                           </View>
+                        ) : (f.flag == 11) ?
+                        (
+                          <FormInput title={f.title} value={f.val} disabled={false}
+                            selectTextOnFocus={false} action={txt => {
+                            this.formInput[i].question[j].val = txt;
+                            this.setState({});
+                          }}/>
+                        ) : f.flag == 12 ? (
+                          <>
+                            <FormDropdown
+                              option={f.option}
+                              value={f.val}
+                              action={item => {
+                                if (i == 0 && j == 0) {
+                                  console.log();
+                                  this.formInput[0].question[1].val =
+                                    item.patient_mrn;
+                                  this.formInput[0].question[2].val =
+                                    item.section_value;
+                                }
+                                this.formInput[i].question[j].val = item.id;
+                                this.setState({});
+                              }}
+                            />
+                            <TouchableOpacity
+                              style={{
+                                backgroundColor: '#EDBC40',
+                                borderRadius: 2,
+                                padding: 2,
+                                margin: 2,
+                              }}
+                              onPress={() => this.toggleStatus()}>
+                              <Text
+                                style={{
+                                  textAlign: 'center',
+                                  color: 'white',
+                                  fontSize: 20,
+                                  fontWeight: 'bold',
+                                  marginBottom: 2,
+                                }}>
+                                +
+                              </Text>
+                            </TouchableOpacity>
+                          </>
+                        ) : f.flag == 13 ? (
+                          <>
+                            {this.state.showTheThing && (
+                              <>
+                                <Text
+                                  style={{
+                                    fontSize: 15,
+                                    fontWeight: 'bold',
+                                    color: 'gray',
+                                    marginBottom: 2,
+                                  }}>
+                                  {f.title}
+                                </Text>
+                                <FormDropdown
+                                  option={f.option}
+                                  value={f.val}
+                                  action={item => {
+                                    if (i == 0 && j == 0) {
+                                      console.log();
+                                      this.formInput[0].question[1].val =
+                                        item.patient_mrn;
+                                      this.formInput[0].question[2].val =
+                                        item.section_value;
+                                    }
+                                    this.formInput[i].question[j].val =
+                                      item.id;
+                                    this.setState({});
+                                  }}
+                                />
+                              </>
+                            )}
+                          </>
+                        ) : f.flag == 14 ? (
+                          <>
+                            {this.state.showTheThing && (
+                              <>
+                                <Text
+                                  style={{
+                                    fontSize: 15,
+                                    fontWeight: 'bold',
+                                    color: 'gray',
+                                    marginBottom: 2,
+                                  }}>
+                                  {f.title}
+                                </Text>
+                                <FormDropdown
+                                  option={f.option}
+                                  value={f.val}
+                                  action={item => {
+                                    if (i == 0 && j == 0) {
+                                      console.log();
+                                      this.formInput[0].question[1].val =
+                                        item.patient_mrn;
+                                      this.formInput[0].question[2].val =
+                                        item.section_value;
+                                    }
+                                    this.formInput[i].question[j].val =
+                                      item.id;
+                                    this.setState({});
+                                  }}
+                                />
+                              </>
+                            )}
+                          </>
+                        ) : f.flag == 15 ? (
+                          <>
+                            {this.state.showTheThing && (
+                              <>
+                                <Text
+                                  style={{
+                                    fontSize: 15,
+                                    fontWeight: 'bold',
+                                    color: 'gray',
+                                    marginBottom: 2,
+                                  }}>
+                                  {f.title}
+                                </Text>
+                                <FormDropdown
+                                  option={f.option}
+                                  value={f.val}
+                                  action={item => {
+                                    if (i == 0 && j == 0) {
+                                      console.log();
+                                      this.formInput[0].question[1].val =
+                                        item.patient_mrn;
+                                      this.formInput[0].question[2].val =
+                                        item.section_value;
+                                    }
+                                    this.formInput[i].question[j].val =
+                                      item.id;
+                                    this.setState({});
+                                  }}
+                                />
+                              </>
+                            )}
+                          </>
+                        ) : f.flag == 16 ? (
+                          <>
+                            {this.state.showTheThing && (
+                              <>
+                                <Text
+                                  style={{
+                                    fontSize: 15,
+                                    fontWeight: 'bold',
+                                    color: 'gray',
+                                    marginBottom: 2,
+                                  }}>
+                                  {f.title}
+                                </Text>
+                                <FormDropdown
+                                  option={f.option}
+                                  value={f.val}
+                                  action={item => {
+                                    if (i == 0 && j == 0) {
+                                      console.log();
+                                      this.formInput[0].question[1].val =
+                                        item.patient_mrn;
+                                      this.formInput[0].question[2].val =
+                                        item.section_value;
+                                    }
+                                    this.formInput[i].question[j].val =
+                                      item.id;
+                                    this.setState({});
+                                  }}
+                                />
+                              </>
+                            )}
+                          </>
+                        ) : f.flag == 17 ? (
+                          <>
+                            {this.state.showTheThing && (
+                              <>
+                                <Text
+                                  style={{
+                                    fontSize: 15,
+                                    fontWeight: 'bold',
+                                    color: 'gray',
+                                    marginBottom: 2,
+                                  }}>
+                                  {f.title}
+                                </Text>
+                                <FormDropdown
+                                  option={f.option}
+                                  value={f.val}
+                                  action={item => {
+                                    if (i == 0 && j == 0) {
+                                      console.log();
+                                      this.formInput[0].question[1].val =
+                                        item.patient_mrn;
+                                      this.formInput[0].question[2].val =
+                                        item.section_value;
+                                    }
+                                    this.formInput[i].question[j].val =
+                                      item.id;
+                                    this.setState({});
+                                  }}
+                                />
+                              </>
+                            )}
+                          </>
                         ) : null}
                       </View>
                     );

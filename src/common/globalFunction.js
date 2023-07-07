@@ -46,7 +46,7 @@ export default class $_SYSTEM {
 
  export class $_USER{
     static GET(key = undefined){
-      console.log('callign...');
+      console.log('calling...');
       return new Promise((resolve,reject)=>{
         AsyncStorage.getItem('loggedUser').then(r=>{
           if (r){

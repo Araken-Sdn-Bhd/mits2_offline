@@ -4,14 +4,16 @@ import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
 import DatePicker from 'react-native-date-picker';
+import MultiSelect from 'react-native-multiple-select';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export function FormInput({title,value,action}) {
+export function FormInput({title,value,action,disabled}) {
   return (
     <TextInput
       placeholder={'Enter ' + title}
-      placeholderTextColor={"black"}
+      placeholderTextColor={'black'}
       value={value}
+      editable={disabled}
       style={{
         flex:1,
         borderWidth: 1,
@@ -23,7 +25,7 @@ export function FormInput({title,value,action}) {
         shadowColor:'black',
         textShadowColor:'black',
         textColor:'black',
-        textColor:'#000'
+        textColor:'#000',
       }}
       onChangeText={action}
     />
@@ -63,9 +65,9 @@ export function FormTextArea({title,value,action,line}) {
         numberOfLines={line}
         // placeholder={ (f.hint) ? 'Enter ' + f.hint : (f.title) ? 'Enter ' + f.title : ''}
         value={value}
-        
-        style={{ 
-            
+
+        style={{
+
             color:'black',
             textDecorationColor:'black',
             shadowColor:'black',
