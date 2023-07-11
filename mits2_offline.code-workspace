@@ -10,5 +10,15 @@
 			"interventionl",
 			"mits"
 		]
+	},
+	"launch": {
+		"configurations": [
+			{
+				"type": "chrome",
+				"name": "localhost:8081/debugger-ui",
+				"request": "launch",
+				"url": "http://localhost:8081/debugger-ui"
+			}
+		]
 	}
 }
