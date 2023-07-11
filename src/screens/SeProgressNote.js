@@ -274,9 +274,18 @@ export default class SetProgress extends React.Component {
 
           console.log('9 == ', f);
         }
-        if ((!f.val || f.val == '') && flag) {
-          Http._toast(f.title + ' is required');
-          flag = false;
+        if (
+          f.flag != 11 &&
+          f.flag != 12 &&
+          f.flag != 13 &&
+          f.flag != 14 &&
+          f.flag != 15 &&
+          f.flag != 4
+        ) {
+          if (!f.val || f.val == '') {
+            Http._toast(f.title + ' is required');
+            flag = false;
+          }
         }
         SEND[f.key] = f.val;
       });
@@ -936,21 +945,23 @@ export default class SetProgress extends React.Component {
                                 }}>
                                 {f.option.map(obj => {
                                   return (
-                                    <FormRadioButton
-                                      icon={
-                                        this.formInput[i].question[j].val ==
-                                        obj.id
-                                          ? 'radio-button-on-outline'
-                                          : 'radio-button-off-outline'
-                                      }
-                                      action={() => {
-                                        console.log(obj.id);
-                                        this.formInput[i].question[j].val =
-                                          obj.id;
-                                        this.setState({});
-                                      }}
-                                      text={obj.section_value}
-                                    />
+                                    <View key={obj.id}>
+                                      <FormRadioButton
+                                        icon={
+                                          this.formInput[i].question[j].val ==
+                                          obj.id
+                                            ? 'radio-button-on-outline'
+                                            : 'radio-button-off-outline'
+                                        }
+                                        action={() => {
+                                          console.log(obj.id);
+                                          this.formInput[i].question[j].val =
+                                            obj.id;
+                                          this.setState({});
+                                        }}
+                                        text={obj.section_value}
+                                      />
+                                    </View>
                                   );
                                 })}
                               </View>

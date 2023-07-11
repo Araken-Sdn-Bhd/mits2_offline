@@ -4,8 +4,8 @@ import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
 import DatePicker from 'react-native-date-picker';
-import MultiSelect from 'react-native-multiple-select';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 
 export function FormInput({title,value,action,disabled}) {
   return (
@@ -24,8 +24,7 @@ export function FormInput({title,value,action,disabled}) {
         textDecorationColor:'black',
         shadowColor:'black',
         textShadowColor:'black',
-        textColor:'black',
-        textColor:'#000',
+        // textColor:'black',
       }}
       onChangeText={action}
     />
@@ -33,7 +32,7 @@ export function FormInput({title,value,action,disabled}) {
 }
 export function FormDropdown({option,value,action}) {
 return <Dropdown
-    style={{borderWidth:1,borderColor:'gray',padding:10,borderRadius:10}}
+    style={{borderWidth:1,borderColor:'gray',padding:10,borderRadius:10,position: 'relative'}}
     data={option}
     search
     labelField="section_value"

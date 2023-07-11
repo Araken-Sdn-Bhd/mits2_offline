@@ -449,31 +449,24 @@ export default class CpsProgressNote extends React.Component {
             val: '',
           },
           {
-            key: '',
-            hint: '',
-            title: null,
-            flag: 5,
-            head: 'RISK ASSESSMENT',
-            disabled: true,
-          },
-          {
             key: 'risk_of_violence',
             hint: '',
+            title2: 'RISK ASSESSMENT',
             title: 'Risk of violence/harm to others',
             flag: 3,
             typ: 'radio',
             val: '',
             option: [
-              {id: 'No', value: 'No'},
-              {id: 'Low', value: 'Low'},
+              {id: 'Nil', value: 'Nil'},
+              {id: 'Mild', value: 'Mild'},
               {id: 'Moderate', value: 'Moderate'},
-              {id: 'High', value: 'High'},
+              {id: 'Severe', value: 'Severe'},
             ],
           },
           {
             key: 'risk_of_suicide',
             hint: '',
-            title: 'Risk of sucide',
+            title: 'Risk of suicide',
             flag: 3,
             typ: 'radio',
             val: '',
@@ -929,7 +922,7 @@ export default class CpsProgressNote extends React.Component {
     var if_employment_yes_require = false;
     this.formInput.forEach(e => {
       e.question.forEach(f => {
-        if (f.flag != 5) {
+        if (f.flag == 5) {
           if (f.flag == 9) {
             if (f.val == 'clinical') {
               SEND.code_id = f.otherValues.code_id;

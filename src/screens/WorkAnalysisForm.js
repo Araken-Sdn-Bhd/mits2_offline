@@ -85,7 +85,7 @@ export default class WorkAnalysisForm extends React.Component {
             key: 'company_address2',
             hint: '',
             title: 'Company Address 2',
-            flag: 0,
+            flag: 8,
             typ: 'text',
             val: '',
           },
@@ -93,7 +93,7 @@ export default class WorkAnalysisForm extends React.Component {
             key: 'company_address3',
             hint: '',
             title: 'Company Address 3',
-            flag: 0,
+            flag: 8,
             typ: 'text',
             val: '',
           },
@@ -142,7 +142,7 @@ export default class WorkAnalysisForm extends React.Component {
             key: 'client_name',
             hint: '',
             title: 'Client name',
-            flag: 11,
+            flag: 0,
             typ: 'text',
             val: '',
           },
@@ -1510,6 +1510,14 @@ export default class WorkAnalysisForm extends React.Component {
             // SEND.sub_code_id = f.otherValues.sub_code_id;
             // SEND.services_id = f.otherValues.services_id;
           }
+          if (f.flag == 8) {
+            console.log(f);
+            if (f.val != null){
+              SEND[f.key] = f.val;
+            } else {
+              SEND[f.key] = '-';
+            }
+          }
           if (f.flag == 10) {
             console.log(f);
             if (f.val == 'yes') {
@@ -1517,13 +1525,23 @@ export default class WorkAnalysisForm extends React.Component {
               f.subQus.forEach(ff => {
                 SEND[ff.key] = ff.val;
               });
+            } else {
+              SEND[f.key] = '-';
             }
-          } else if (f.key != null && f.key != '') {
-            SEND[f.key] = f.val;
           }
-          if (!f.val || f.val == '') {
-            errors += f.title + ' is required \n';
-            flag = false;
+          if (f.flag == 4) {
+            console.log(f);
+            if (f.val != null){
+              SEND[f.key] = f.val;
+            } else {
+              SEND[f.key] = '-';
+            }
+          }
+          if (f.flag != 8 && f.flag != 10 && f.flag != 4 && f.flag != 13 && f.flag != 14 && f.flag != 15 && f.flag != 16 && f.flag != 17) {
+            if (!f.val || f.val == '') {
+              errors += f.title + ' is required \n';
+              flag = false;
+            }
           }
         });
       }
@@ -1825,6 +1843,24 @@ export default class WorkAnalysisForm extends React.Component {
                         ) : null}
                         {f.stext ? <Text style={{}}>{f.stext}</Text> : null}
                         {f.flag == 0 ? (
+                          <FormInput
+                            title={f.hint != '' ? f.hint : f.title}
+                            value={f.val}
+                            action={txt => {
+                              this.formInput[i].question[j].val = txt;
+                              this.setState({});
+                            }}
+                          />
+                        ) : f.flag == 8 ? (
+                          <FormInput
+                            title={f.hint != '' ? f.hint : f.title}
+                            value={f.val}
+                            action={txt => {
+                              this.formInput[i].question[j].val = txt;
+                              this.setState({});
+                            }}
+                          />
+                        ) : f.flag == 18 ? (
                           <FormInput
                             title={f.hint != '' ? f.hint : f.title}
                             value={f.val}
