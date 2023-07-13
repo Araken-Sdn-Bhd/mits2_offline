@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-native/no-inline-styles */
 
-import React, {useState} from 'react';
+import React from 'react';
 import {ScrollView, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import GlobalContext from '../GlobalContext';
@@ -34,11 +34,18 @@ export default class SetProgress extends React.Component {
     });
     console.log('toggle button handler: ' + this.state.showTheThing2);
   }
+  toggleStatus3() {
+    this.setState({
+      showTheThing3: !this.state.showTheThing3,
+    });
+    console.log('toggle button handler: ' + this.state.showTheThing3);
+  }
   constructor(props) {
     super(props);
     this.state = {
       showTheThing: true,
       showTheThing2: true,
+      showTheThing3: true,
     };
     this.formInput = [
       {
@@ -168,7 +175,7 @@ export default class SetProgress extends React.Component {
             val: 'assisstance',
             option: [
               {id: 'assisstance', section_value: 'Assistant/supervision'},
-              {id: 'clinical', section_value: 'Clinical work'},
+              {id: 'clinical-work', section_value: 'Clinical work'},
               {id: 'external', section_value: 'External'},
             ],
             onchange: {i: 0, j: 0, api: ''},
@@ -176,8 +183,14 @@ export default class SetProgress extends React.Component {
               code_id: 0,
               sel_val: '',
               sub_code_id: 0,
+              sub_code_id1: 0,
+              sub_code_id2: 0,
+              sub_code_id3: 0,
+              sub_code_id4: 0,
+              sub_code_id5: 0,
               additional_code_id1: 0,
               additional_sel_val1: '',
+              additional_sub_code_id: 0,
               additional_sub_code_id1: 0,
               additional_code_id2: 0,
               additional_sel_val2: '',
@@ -237,22 +250,25 @@ export default class SetProgress extends React.Component {
     this.formInput.forEach(e => {
       e.question.forEach(f => {
         if (f.flag == 9) {
-          if (f.val == 'clinical') {
+          if (f.val == 'clinical-work') {
             SEND.code_id = f.otherValues.code_id;
             SEND.sub_code_id = f.otherValues.sub_code_id;
-            SEND.additional_code_id1 = f.otherValues.additional_code_id1;
+            SEND.sub_code_id1 = f.otherValues.sub_code_id1;
+            SEND.sub_code_id2 = f.otherValues.sub_code_id2;
+            SEND.sub_code_id3 = f.otherValues.sub_code_id3;
+            SEND.sub_code_id4 = f.otherValues.sub_code_id4;
+            SEND.sub_code_id5 = f.otherValues.sub_code_id5;
+            // --
+            SEND.additional_code_id = f.otherValues.additional_code_id1;
+            SEND.additional_sub_code_id = f.otherValues.additional_sub_code_id;
             SEND.additional_sub_code_id1 =
               f.otherValues.additional_sub_code_id1;
-            SEND.additional_code_id2 = f.otherValues.additional_code_id2;
             SEND.additional_sub_code_id2 =
               f.otherValues.additional_sub_code_id2;
-            SEND.additional_code_id3 = f.otherValues.additional_code_id3;
             SEND.additional_sub_code_id3 =
               f.otherValues.additional_sub_code_id3;
-            SEND.additional_code_id4 = f.otherValues.additional_code_id4;
             SEND.additional_sub_code_id4 =
               f.otherValues.additional_sub_code_id4;
-            SEND.additional_code_id5 = f.otherValues.additional_code_id5;
             SEND.additional_sub_code_id5 =
               f.otherValues.additional_sub_code_id5;
             SEND.services_id = '';
@@ -260,15 +276,17 @@ export default class SetProgress extends React.Component {
             SEND.services_id = f.otherValues.service_id;
             SEND.code_id = '';
             SEND.sub_code_id = '';
-            SEND.additional_code_id1 = '';
+            SEND.sub_code_id1 = '';
+            SEND.sub_code_id2 = '';
+            SEND.sub_code_id3 = '';
+            SEND.sub_code_id4 = '';
+            SEND.sub_code_id5 = '';
+            SEND.additional_code_id = '';
+            SEND.additional_sub_code_id = '';
             SEND.additional_sub_code_id1 = '';
-            SEND.additional_code_id2 = '';
             SEND.additional_sub_code_id2 = '';
-            SEND.additional_code_id3 = '';
             SEND.additional_sub_code_id3 = '';
-            SEND.additional_code_id4 = '';
             SEND.additional_sub_code_id4 = '';
-            SEND.additional_code_id5 = '';
             SEND.additional_sub_code_id5 = '';
           }
 
@@ -439,8 +457,13 @@ export default class SetProgress extends React.Component {
                 // this.formInput[1].question[12].otherData[dd[1]],
                 //   ),
                 // );
-                // eslint-disable-next-line prettier/prettier
-                AsyncStorage.setItem(dd[0], JSON.stringify(this.formInput[1].question[7].otherData[dd[1]]));
+
+                AsyncStorage.setItem(
+                  dd[0],
+                  JSON.stringify(
+                    this.formInput[1].question[7].otherData[dd[1]],
+                  ),
+                );
                 this.setState({});
               } else {
                 Http._toast(
@@ -968,7 +991,7 @@ export default class SetProgress extends React.Component {
                               {
                                 //otherValues:{code_id:0,sub_code_id:0}, otherData:{icd9:[],icd10:[]} :
                                 this.formInput[i].question[j].val ==
-                                'clinical' ? (
+                                'clinical-work' ? (
                                   <View>
                                     <View
                                       style={{
@@ -1021,6 +1044,212 @@ export default class SetProgress extends React.Component {
                                           padding: 2,
                                           margin: 2,
                                         }}
+                                        onPress={() => this.toggleStatus3()}>
+                                        <Text
+                                          style={{
+                                            textAlign: 'center',
+                                            color: 'white',
+                                            fontSize: 20,
+                                            fontWeight: 'bold',
+                                            marginBottom: 2,
+                                          }}>
+                                          +
+                                        </Text>
+                                      </TouchableOpacity>
+                                    </View>
+                                    {this.state.showTheThing3 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            ICD 9 sub code 1
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues.sel_val ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={f.otherValues.sub_code_id1}
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.sub_code_id1 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing3 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            ICD 9 sub code 2
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues.sel_val ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={f.otherValues.sub_code_id2}
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.sub_code_id2 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing3 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            ICD 9 sub code 3
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues.sel_val ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={f.otherValues.sub_code_id3}
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.sub_code_id3 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing3 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            ICD 9 sub code 4
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues.sel_val ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={f.otherValues.sub_code_id4}
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.sub_code_id4 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    {this.state.showTheThing3 && (
+                                      <View
+                                        style={{
+                                          flexDirection: 'row',
+                                          marginTop: 10,
+                                        }}>
+                                        <View style={{flex: 1, marginLeft: 5}}>
+                                          <Text style={{fontWeight: 'bold'}}>
+                                            ICD 9 sub code 5
+                                          </Text>
+                                          <FormDropdown
+                                            option={f.otherData.icd10.filter(
+                                              ee =>
+                                                f.otherValues.sel_val ==
+                                                ee.icd_category_code,
+                                            )}
+                                            value={f.otherValues.sub_code_id5}
+                                            action={item => {
+                                              this.formInput[i].question[
+                                                j
+                                              ].otherValues.sub_code_id5 =
+                                                item.id;
+                                            }}
+                                          />
+                                        </View>
+                                      </View>
+                                    )}
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        marginTop: 10,
+                                      }}>
+                                      <View style={{flex: 1}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          Additional ICD 9 code
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd9}
+                                          value={
+                                            f.otherValues.additional_code_id1
+                                          }
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.additional_code_id1 =
+                                              item.id;
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.additional_sel_val1 =
+                                              item.icd_category_code;
+                                            this.setState({});
+                                          }}
+                                        />
+                                      </View>
+                                      <View style={{flex: 1, marginLeft: 5}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          Additional ICD 9 sub code
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd10.filter(
+                                            ee =>
+                                              f.otherValues
+                                                .additional_sel_val1 ==
+                                              ee.icd_category_code,
+                                          )}
+                                          value={
+                                            f.otherValues.additional_sub_code_id
+                                          }
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.additional_sub_code_id =
+                                              item.id;
+                                          }}
+                                        />
+                                      </View>
+                                    </View>
+                                    <View>
+                                      <TouchableOpacity
+                                        style={{
+                                          backgroundColor: '#EDBC40',
+                                          borderRadius: 2,
+                                          padding: 2,
+                                          margin: 2,
+                                        }}
                                         onPress={() => this.toggleStatus2()}>
                                         <Text
                                           style={{
@@ -1040,28 +1269,6 @@ export default class SetProgress extends React.Component {
                                           flexDirection: 'row',
                                           marginTop: 10,
                                         }}>
-                                        <View style={{flex: 1}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 code 1
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd9}
-                                            value={
-                                              f.otherValues.additional_code_id1
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_code_id1 =
-                                                item.id;
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sel_val1 =
-                                                item.icd_category_code;
-                                              this.setState({});
-                                            }}
-                                          />
-                                        </View>
                                         <View style={{flex: 1, marginLeft: 5}}>
                                           <Text style={{fontWeight: 'bold'}}>
                                             Additional ICD 9 sub code 1
@@ -1093,28 +1300,6 @@ export default class SetProgress extends React.Component {
                                           flexDirection: 'row',
                                           marginTop: 10,
                                         }}>
-                                        <View style={{flex: 1}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 code 2
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd9}
-                                            value={
-                                              f.otherValues.additional_code_id2
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_code_id2 =
-                                                item.id;
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sel_val2 =
-                                                item.icd_category_code;
-                                              this.setState({});
-                                            }}
-                                          />
-                                        </View>
                                         <View style={{flex: 1, marginLeft: 5}}>
                                           <Text style={{fontWeight: 'bold'}}>
                                             Additional ICD 9 sub code 2
@@ -1123,7 +1308,7 @@ export default class SetProgress extends React.Component {
                                             option={f.otherData.icd10.filter(
                                               ee =>
                                                 f.otherValues
-                                                  .additional_sel_val2 ==
+                                                  .additional_sel_val1 ==
                                                 ee.icd_category_code,
                                             )}
                                             value={
@@ -1146,28 +1331,6 @@ export default class SetProgress extends React.Component {
                                           flexDirection: 'row',
                                           marginTop: 10,
                                         }}>
-                                        <View style={{flex: 1}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 code 3
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd9}
-                                            value={
-                                              f.otherValues.additional_code_id3
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_code_id3 =
-                                                item.id;
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sel_val3 =
-                                                item.icd_category_code;
-                                              this.setState({});
-                                            }}
-                                          />
-                                        </View>
                                         <View style={{flex: 1, marginLeft: 5}}>
                                           <Text style={{fontWeight: 'bold'}}>
                                             Additional ICD 9 sub code 3
@@ -1176,7 +1339,7 @@ export default class SetProgress extends React.Component {
                                             option={f.otherData.icd10.filter(
                                               ee =>
                                                 f.otherValues
-                                                  .additional_sel_val3 ==
+                                                  .additional_sel_val1 ==
                                                 ee.icd_category_code,
                                             )}
                                             value={
@@ -1199,28 +1362,6 @@ export default class SetProgress extends React.Component {
                                           flexDirection: 'row',
                                           marginTop: 10,
                                         }}>
-                                        <View style={{flex: 1}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 code 4
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd9}
-                                            value={
-                                              f.otherValues.additional_code_id4
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_code_id4 =
-                                                item.id;
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sel_val4 =
-                                                item.icd_category_code;
-                                              this.setState({});
-                                            }}
-                                          />
-                                        </View>
                                         <View style={{flex: 1, marginLeft: 5}}>
                                           <Text style={{fontWeight: 'bold'}}>
                                             Additional ICD 9 sub code 4
@@ -1229,7 +1370,7 @@ export default class SetProgress extends React.Component {
                                             option={f.otherData.icd10.filter(
                                               ee =>
                                                 f.otherValues
-                                                  .additional_sel_val4 ==
+                                                  .additional_sel_val1 ==
                                                 ee.icd_category_code,
                                             )}
                                             value={
@@ -1252,28 +1393,6 @@ export default class SetProgress extends React.Component {
                                           flexDirection: 'row',
                                           marginTop: 10,
                                         }}>
-                                        <View style={{flex: 1}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 code 5
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd9}
-                                            value={
-                                              f.otherValues.additional_code_id5
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_code_id5 =
-                                                item.id;
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sel_val5 =
-                                                item.icd_category_code;
-                                              this.setState({});
-                                            }}
-                                          />
-                                        </View>
                                         <View style={{flex: 1, marginLeft: 5}}>
                                           <Text style={{fontWeight: 'bold'}}>
                                             Additional ICD 9 sub code 5
@@ -1282,7 +1401,7 @@ export default class SetProgress extends React.Component {
                                             option={f.otherData.icd10.filter(
                                               ee =>
                                                 f.otherValues
-                                                  .additional_sel_val5 ==
+                                                  .additional_sel_val1 ==
                                                 ee.icd_category_code,
                                             )}
                                             value={
