@@ -4,11 +4,12 @@ import {Alert, Platform, ToastAndroid} from 'react-native';
 
 export default class Http {
   // static apiUrl = 'http://122.176.47.222:85/mintari2/public/index.php/api/';
-  // static apiUrl = "https://mentari.moh.gov.my/point/api/";
-  static apiUrl = "http://10.0.2.2:8000/api/";
+  static apiUrl = "https://mentari.moh.gov.my/point/api/";
+  // static apiUrl = "http://10.0.2.2:8000/api/";
+  // static apiUrl = "http://192.168.1.121:8000/api/";
 
-  static isProduction=true;
-  static loading=undefined;
+  static isProduction = true;
+  static loading = undefined;
 
   constructor() {}
 

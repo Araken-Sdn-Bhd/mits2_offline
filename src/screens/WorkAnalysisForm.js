@@ -41,14 +41,1352 @@ export default class WorkAnalysisForm extends React.Component {
     });
     console.log('toggle button handler: ' + this.state.showTheThing2);
   }
+  toggleStatus3() {
+    this.setState({
+      showTheThing3: !this.state.showTheThing23
+    });
+    console.log('toggle button handler: ' + this.state.showTheThing3);
+  }
   constructor(props) {
     super(props);
-    this.loadForm();
+    
     this.state = {
       loading: false,
       showTheThing: false,
       showTheThing2: false,
+      showTheThing3: false,
     };
+
+    this.formInput = [
+      {
+        segment: 'JOB INFORMATION',
+        show: !true,
+        question: [
+          {
+            key: 'patient_id',
+            title: 'Patient list',
+            flag: 1,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'company_name',
+            hint: '',
+            title: 'Company Name',
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'company_address1',
+            hint: '',
+            title: 'Company Address',
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'company_address2',
+            hint: '',
+            title: 'Company Address 2',
+            flag: 8,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'company_address3',
+            hint: '',
+            title: 'Company Address 3',
+            flag: 8,
+            typ: 'text',
+            val: '',
+          },
+          { key: 'state_id', title: 'State', flag: 1, val: '', option: [] },
+          {
+            key: 'city_id',
+            title: 'City',
+            flag: 1,
+            val: '',
+            option: [],
+            deps: { row: 0, col: 5, match: 'id' },
+          },
+          {
+            key: 'postcode_id',
+            title: 'Postcode',
+            flag: 1,
+            val: '',
+            option: [],
+            deps: { row: 0, col: 6, match: 'section_name' },
+          },
+          {
+            key: 'supervisor_name',
+            hint: '',
+            title: 'Supervisor Name',
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'email',
+            hint: '',
+            title: 'Email',
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'position',
+            hint: '',
+            title: 'Position',
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'client_name',
+            hint: '',
+            title: 'Client name',
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'job_position',
+            hint: '',
+            title: 'Job position',
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'current_wage',
+            title: 'Current wage',
+            flag: 1,
+            val: '',
+            option: [
+              { id: 'Per Hour', section_value: 'Per Hour' },
+              { id: 'Per Day', section_value: 'Per Day' },
+              { id: 'Per Month', section_value: 'Per Month' },
+            ],
+          },
+          {
+            key: 'wage_specify',
+            hint: ' wage',
+            title: null,
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'wage_change_occur',
+            hint: '',
+            title: 'Did a wage change occur for the last 3-6 months ?',
+            flag: 10,
+            typ: 'radio',
+            val: '',
+            option: [
+              { id: 'yes', value: 'yes' },
+              { id: 'No', value: 'No' },
+            ],
+            subQus: [
+              {
+                key: 'change_in_rate',
+                title: 'Change In Rate',
+                flag: 1,
+                val: '',
+                option: [
+                  { id: 'Per Hour', section_value: 'Per Hour' },
+                  { id: 'Per Day', section_value: 'Per Hour' },
+                  { id: 'Per Month', section_value: 'Per Hour' },
+                ],
+              },
+              {
+                key: 'from',
+                hint: '',
+                title: 'From',
+                flag: 0,
+                typ: 'text',
+                val: '',
+              },
+              { key: 'to', hint: '', title: 'To', flag: 0, typ: 'text', val: '' },
+              {
+                key: 'on_date',
+                hint: '',
+                title: 'On Date',
+                flag: 0,
+                typ: 'text',
+                val: '',
+              },
+              {
+                key: 'works_hour_week',
+                hint: '',
+                title: 'Work Hours In A Week',
+                flag: 0,
+                typ: 'text',
+                val: '',
+              },
+              {
+                key: 'work_schedule',
+                hint: '',
+                title: 'Work Schedule',
+                flag: 0,
+                typ: 'text',
+                val: '',
+              },
+              {
+                key: 'no_of_current_employee',
+                hint: '',
+                title: 'No Of Current Employee In Company',
+                flag: 0,
+                typ: 'text',
+                val: '',
+              },
+              {
+                key: 'no_of_other_employee',
+                hint: '',
+                title: 'No Of Other Employees In This Position',
+                flag: 0,
+                typ: 'text',
+                val: '',
+              },
+              {
+                key: 'during_same_shift',
+                hint: '',
+                title: 'During Same Shift',
+                flag: 0,
+                typ: 'text',
+                val: '',
+              },
+            ],
+          },
+          {
+            key: 'education_level',
+            hint: 'Education level',
+            title: 'Education',
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'grade',
+            hint: ' Grade',
+            title: null,
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'job_experience_year',
+            hint: 'Year',
+            title: 'Job experience (minimum duration of work) ',
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'job_experience_months',
+            hint: ' Month',
+            title: null,
+            flag: 0,
+            typ: 'text',
+            val: '',
+          },
+          {
+            key: 'others',
+            hint: '',
+            title: 'Others',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+        ],
+      },
+      {
+        segment: 'JOB DESCRIPTION',
+        show: false,
+        replicate: true,
+        count: 1,
+        question: [
+          //jobs
+          {
+            key: 'task_description',
+            hint: '',
+            title: 'Task description ( What ? )',
+            flag: 0,
+            typ: 'text',
+            val: [''],
+          },
+          {
+            key: 'objectives',
+            hint: '',
+            title: 'Objective ( Why ? )',
+            flag: 0,
+            typ: 'text',
+            val: [''],
+          },
+          {
+            key: 'procedure',
+            hint: '',
+            title: 'Procedure',
+            flag: 0,
+            typ: 'text',
+            val: [''],
+          },
+          {
+            key: 'rate_of_time',
+            hint: '',
+            title: '% Time (rate of time)',
+            flag: 0,
+            typ: 'text',
+            val: [''],
+          },
+        ],
+      },
+      {
+        segment: 'JOB SPECIFICATION',
+        flag: true,
+        show: false,
+        question: [
+          //job_specification
+          {
+            grp: '1',
+            key: 'questions',
+            hint: '',
+            title: '1. WORK SCHEDULE',
+            text: 'A. Need to work on weekend',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '1',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. Night shift only ?',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '1',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Part-time',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '1',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'D. Full time ? ',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '1',
+            key: 'comments',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '2',
+            key: '',
+            hint: '',
+            title: '2. TRANSPORT TO WORKPLACE',
+            text: 'A. Public transport',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '2',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. Own transport. if yes mention type ?',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '2',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Company transport',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '2',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '3',
+            key: '',
+            hint: '',
+            title: '3. PHYSICAL AND GRADE WEIGHT ABILITIES',
+            text: 'A. Limited ( < 5kg )',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '3',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. Light ( 5 - 10kg )',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '3',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Moderate ( 10-20kg )',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '3',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Heavy ( >20kg )',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '3',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '4',
+            key: '',
+            hint: '',
+            title: '4. WORK TOLERANCE',
+            text: 'A. Less than 2 hours',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '4',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. 2-3 hours',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '4',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. 3-4 hours',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '4',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. More than 4 hours',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '4',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '5',
+            key: '',
+            hint: '',
+            title: '5. WORK AREA',
+            text: 'A. Small place',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '5',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. One room',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '5',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Few rooms',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '5',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'D. Big building',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '5',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '6',
+            key: '',
+            hint: '',
+            title: '6. WORK SPEED',
+            text: 'A. Slow',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '6',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. Mild',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '6',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Moderate',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '6',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'D. Fast',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '6',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '7',
+            key: '',
+            hint: '',
+            title: '7. APPEARANCE',
+            text: 'A. Casual',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '7',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. Clean',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '7',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Clean and well kempt',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '7',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'D. Well kempt',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '7',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '8',
+            key: '',
+            hint: '',
+            title: '8. Communication skill',
+            text: 'A. Not required/minimal',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '8',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. When needed',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '8',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Average',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '8',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'D. Good',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '8',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '9',
+            key: '',
+            hint: '',
+            title: '9. SOCIAL INTERACTION',
+            text: 'A. Not required / minimal',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '9',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. When needed',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '9',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Average',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '9',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'D. Good',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '9',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '10',
+            key: '',
+            hint: '',
+            title: '10. CONCENTRATION',
+            text: 'A. Minimal',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '10',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. Fair',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '10',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Average',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '10',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'D. Good',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '10',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '11',
+            key: '',
+            hint: '',
+            title: '11. Work demand',
+            text: 'A. One task at a time',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '11',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. Few task ( 2-3 )',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '11',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Average ( 4-6 )',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '11',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'D. Many task ( > 7 )',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '11',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '12',
+            key: '',
+            hint: '',
+            title: '12. MOTIVATION',
+            text: 'A. Need encouragement',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '12',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. Practice',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '12',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Good support',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '12',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '13',
+            key: '',
+            hint: '',
+            title: '13. FLEXIBLILITY IN ROUTINE',
+            text: 'A. Frequant ( > 7 ) ',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '13',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. Average ( 4-6 )',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '13',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Minimal ( 2-3 )',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '13',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '14',
+            key: '',
+            hint: '',
+            title: '14. ABILITY TO READ',
+            text: 'A. Not required',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '14',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. Recognize symbol',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '14',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Simple word',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '14',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'D. Read fluently',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '14',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '15',
+            key: '',
+            hint: '',
+            title: '15. ABILITY TO CALCULATE',
+            text: 'A. Not required',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '15',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'B. Use calculator',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '15',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'C. Simple math without calculator',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '15',
+            key: '',
+            hint: '',
+            title: null,
+            text: 'D. Difficult maths',
+            flag: 6,
+            typ: 'radio',
+            val: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '15',
+            key: '',
+            hint: '',
+            text: '',
+            title: '',
+            stext: 'Comment',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+
+          {
+            grp: '16',
+            key: '',
+            hint: '',
+            title: '16. Benefits',
+            text: '0 = Nil',
+            flag: 7,
+            typ: 'radio',
+            val: '',
+            val2: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '16',
+            key: '',
+            hint: '',
+            title: null,
+            text: '16 = MC',
+            flag: 7,
+            typ: 'radio',
+            val: '',
+            val2: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '16',
+            key: '',
+            hint: '',
+            title: null,
+            text: '2 = Medical benefit',
+            flag: 7,
+            typ: 'radio',
+            val: '',
+            val2: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '16',
+            key: '',
+            hint: '',
+            title: null,
+            text: '3 = Annual Leave',
+            flag: 7,
+            typ: 'radio',
+            val: '',
+            val2: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '16',
+            key: '',
+            hint: '',
+            title: null,
+            text: '4 = Dental benefit',
+            flag: 7,
+            typ: 'radio',
+            val: '',
+            val2: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '16',
+            key: '',
+            hint: '',
+            title: null,
+            text: '5 = Discount for employee ',
+            flag: 7,
+            typ: 'radio',
+            val: '',
+            val2: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '16',
+            key: '',
+            hint: '',
+            title: null,
+            text: '6 = Free food',
+            flag: 7,
+            typ: 'radio',
+            val: '',
+            val2: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+          {
+            grp: '16',
+            key: '',
+            hint: '',
+            title: null,
+            text: '7 = Others ( to specify ) ',
+            flag: 7,
+            typ: 'radio',
+            val: '',
+            val2: '',
+            option: [{ id: 'Yes', value: 'Yes' }],
+          },
+        ],
+      },
+      {
+        segment: 'OCCASION OF SERVICES',
+        show: false,
+        question: [
+          {
+            key: 'location_services',
+            title: 'Location of services',
+            flag: 1,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'type_diagnosis_id',
+            title: 'Type of diagnosis',
+            flag: 12,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'add_diagnosis_type1',
+            title: 'Additional diagnosis 1',
+            flag: 13,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'add_diagnosis_type2',
+            title: 'Additional diagnosis 2',
+            flag: 14,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'add_diagnosis_type3',
+            title: 'Additional diagnosis 3',
+            flag: 15,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'add_diagnosis_type4',
+            title: 'Additional diagnosis 4',
+            flag: 16,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'add_diagnosis_type5',
+            title: 'Additional diagnosis 5',
+            flag: 17,
+            val: '',
+            option: [],
+          },
+          {
+            key: 'category_services',
+            title: 'Category of services',
+            flag: 9,
+            val: 'assisstance',
+            option: [
+              { id: 'assisstance', section_value: 'Assistant/supervision' },
+              { id: 'clinical-work', section_value: 'Clinical work' },
+              { id: 'external', section_value: 'External' },
+            ],
+            onchange: { i: 0, j: 0, api: '' },
+            otherValues: {
+              sel_val: '',
+              code_id: 0,
+              sub_code_id: 0,
+              sub_code_id1: 0,
+              sub_code_id2: 0,
+              sub_code_id3: 0,
+              sub_code_id4: 0,
+              sub_code_id5: 0,
+              additional_code_id1: 0,
+              additional_sel_val1: '',
+              additional_sub_code_id1: 0,
+              additional_code_id2: 0,
+              additional_sel_val2: '',
+              additional_sub_code_id2: 0,
+              additional_code_id3: 0,
+              additional_sel_val3: '',
+              additional_sub_code_id3: 0,
+              additional_code_id4: 0,
+              additional_sel_val4: '',
+              additional_sub_code_id4: 0,
+              additional_code_id5: 0,
+              additional_sel_val5: '',
+              additional_sub_code_id5: 0,
+              services_id: 0,
+            },
+            otherData: { icd9: [], icd10: [], external: [], assistance: [] },
+          },
+          {
+            key: 'complexity_services',
+            title: 'Complexity of services',
+            flag: 1,
+            val: '',
+            option: [],
+          },
+          { key: 'outcome', title: 'Outcome', flag: 1, val: '', option: [] },
+        ],
+      },
+      {
+        segment: 'MEDICATION',
+        show: false,
+        question: [
+          {
+            key: 'medication_des',
+            hint: '',
+            title: 'Comments',
+            flag: 4,
+            typ: 'text',
+            line: 4,
+            val: '',
+          },
+        ],
+      },
+    ];
     this.submitData = this.submitData.bind(this);
   }
 
@@ -1325,7 +2663,7 @@ export default class WorkAnalysisForm extends React.Component {
             val: 'assisstance',
             option: [
               { id: 'assisstance', section_value: 'Assistant/supervision' },
-              { id: 'clinical', section_value: 'Clinical work' },
+              { id: 'clinical-work', section_value: 'Clinical work' },
               { id: 'external', section_value: 'External' },
             ],
             onchange: { i: 0, j: 0, api: '' },
@@ -1469,25 +2807,29 @@ export default class WorkAnalysisForm extends React.Component {
         }
 
         SEND.jobs = arr;
-      } else {
+      }
         e.question.forEach(f => {
+          SEND[f.key] = f.val;
           if (f.flag == 9) {
-            if (f.val == 'clinical') {
+            if (f.val == 'clinical-work') {
               SEND.code_id = f.otherValues.code_id;
               SEND.sub_code_id = f.otherValues.sub_code_id;
-              SEND.additional_code_id1 = f.otherValues.additional_code_id1;
+              SEND.sub_code_id1 = f.otherValues.sub_code_id1;
+              SEND.sub_code_id2 = f.otherValues.sub_code_id2;
+              SEND.sub_code_id3 = f.otherValues.sub_code_id3;
+              SEND.sub_code_id4 = f.otherValues.sub_code_id4;
+              SEND.sub_code_id5 = f.otherValues.sub_code_id5;
+              // --
+              SEND.additional_code_id = f.otherValues.additional_code_id1;
+              SEND.additional_sub_code_id = f.otherValues.additional_sub_code_id;
               SEND.additional_sub_code_id1 =
                 f.otherValues.additional_sub_code_id1;
-              SEND.additional_code_id2 = f.otherValues.additional_code_id2;
               SEND.additional_sub_code_id2 =
                 f.otherValues.additional_sub_code_id2;
-              SEND.additional_code_id3 = f.otherValues.additional_code_id3;
               SEND.additional_sub_code_id3 =
                 f.otherValues.additional_sub_code_id3;
-              SEND.additional_code_id4 = f.otherValues.additional_code_id4;
               SEND.additional_sub_code_id4 =
                 f.otherValues.additional_sub_code_id4;
-              SEND.additional_code_id5 = f.otherValues.additional_code_id5;
               SEND.additional_sub_code_id5 =
                 f.otherValues.additional_sub_code_id5;
               SEND.services_id = '';
@@ -1495,20 +2837,24 @@ export default class WorkAnalysisForm extends React.Component {
               SEND.services_id = f.otherValues.service_id;
               SEND.code_id = '';
               SEND.sub_code_id = '';
-              SEND.additional_code_id1 = '';
+              SEND.sub_code_id1 = '';
+              SEND.sub_code_id2 = '';
+              SEND.sub_code_id3 = '';
+              SEND.sub_code_id4 = '';
+              SEND.sub_code_id5 = '';
+              SEND.additional_code_id = '';
+              SEND.additional_sub_code_id = '';
               SEND.additional_sub_code_id1 = '';
-              SEND.additional_code_id2 = '';
               SEND.additional_sub_code_id2 = '';
-              SEND.additional_code_id3 = '';
               SEND.additional_sub_code_id3 = '';
-              SEND.additional_code_id4 = '';
               SEND.additional_sub_code_id4 = '';
-              SEND.additional_code_id5 = '';
               SEND.additional_sub_code_id5 = '';
             }
-            // SEND.code_id = f.otherValues.code_id;
-            // SEND.sub_code_id = f.otherValues.sub_code_id;
-            // SEND.services_id = f.otherValues.services_id;
+            console.log('9 == ', f);
+          }
+          if (f.flag == 1){
+            console.log('1 ==', f);
+            SEND[f.key] = f.val;
           }
           if (f.flag == 8) {
             console.log(f);
@@ -1545,7 +2891,7 @@ export default class WorkAnalysisForm extends React.Component {
           }
         });
       }
-    });
+    );
     SEND.status = 0;
     SEND.added_by = user.user.id;
     SEND.patient_id = SEND.patient_id;
@@ -1565,7 +2911,7 @@ export default class WorkAnalysisForm extends React.Component {
             //     });
             //   }
             // });
-            this.loadForm();
+            // this.loadForm();
             this.setState({});
           }
         })
@@ -2124,334 +3470,433 @@ export default class WorkAnalysisForm extends React.Component {
                             {
                               //otherValues:{code_id:0,sub_code_id:0}, otherData:{icd9:[],icd10:[]} :
                               this.formInput[i].question[j].val ==
-                                'clinical' ? (
+                              'clinical-work' ? (
                                 <View>
-                                <View
-                                  style={{ flexDirection: 'row', marginTop: 10 }}>
-                                  <View style={{ flex: 1 }}>
-                                    <Text style={{ fontWeight: 'bold' }}>
-                                      ICD 9 code
-                                    </Text>
-                                    <FormDropdown
-                                      option={f.otherData.icd9}
-                                      value={f.otherValues.code_id}
-                                      action={item => {
-                                        this.formInput[i].question[
-                                          j
-                                        ].otherValues.sel_val =
-                                          item.icd_category_code;
-                                        this.formInput[i].question[
-                                          j
-                                        ].otherValues.code_id = item.id;
-                                        this.setState({});
-                                      }}
-                                    />
-                                  </View>
-                                  <View style={{ flex: 1, marginLeft: 5 }}>
-                                    <Text style={{ fontWeight: 'bold' }}>
-                                      ICD 9 sub code
-                                    </Text>
-                                    <FormDropdown
-                                      option={f.otherData.icd10.filter(
-                                        ee =>
-                                          f.otherValues.sel_val ==
-                                          ee.icd_category_code,
-                                      )}
-                                      value={f.otherValues.sub_code_id}
-                                      action={item => {
-                                        this.formInput[i].question[
-                                          j
-                                        ].otherValues.sub_code_id = item.id;
-                                      }}
-                                    />
-                                  </View>
-                                </View>
-                                <View>
-                                      <TouchableOpacity
-                                        style={{
-                                          backgroundColor: '#EDBC40',
-                                          borderRadius: 2,
-                                          padding: 2,
-                                          margin: 2,
+                                  <View
+                                    style={{
+                                      flexDirection: 'row',
+                                      marginTop: 10,
+                                    }}>
+                                    <View style={{flex: 1}}>
+                                      <Text style={{fontWeight: 'bold'}}>
+                                        ICD 9 code
+                                      </Text>
+                                      <FormDropdown
+                                        option={f.otherData.icd9}
+                                        value={f.otherValues.code_id}
+                                        action={item => {
+                                          this.formInput[i].question[
+                                            j
+                                          ].otherValues.code_id = item.id;
+                                          this.formInput[i].question[
+                                            j
+                                          ].otherValues.sel_val =
+                                            item.icd_category_code;
+                                          this.setState({});
                                         }}
-                                        onPress={() => this.toggleStatus2()}>
-                                        <Text
-                                          style={{
-                                            textAlign: 'center',
-                                            color: 'white',
-                                            fontSize: 20,
-                                            fontWeight: 'bold',
-                                            marginBottom: 2,
-                                          }}>
-                                          +
-                                        </Text>
-                                      </TouchableOpacity>
+                                      />
                                     </View>
-                                    {this.state.showTheThing2 && (
-                                      <View
+                                    <View style={{flex: 1, marginLeft: 5}}>
+                                      <Text style={{fontWeight: 'bold'}}>
+                                        ICD 9 sub code
+                                      </Text>
+                                      <FormDropdown
+                                        option={f.otherData.icd10.filter(
+                                          ee =>
+                                            f.otherValues.sel_val ==
+                                            ee.icd_category_code,
+                                        )}
+                                        value={f.otherValues.sub_code_id}
+                                        action={item => {
+                                          this.formInput[i].question[
+                                            j
+                                          ].otherValues.sub_code_id = item.id;
+                                        }}
+                                      />
+                                    </View>
+                                  </View>
+                                  <View>
+                                    <TouchableOpacity
+                                      style={{
+                                        backgroundColor: '#EDBC40',
+                                        borderRadius: 2,
+                                        padding: 2,
+                                        margin: 2,
+                                      }}
+                                      onPress={() => this.toggleStatus3()}>
+                                      <Text
                                         style={{
-                                          flexDirection: 'row',
-                                          marginTop: 10,
+                                          textAlign: 'center',
+                                          color: 'white',
+                                          fontSize: 20,
+                                          fontWeight: 'bold',
+                                          marginBottom: 2,
                                         }}>
-                                        <View style={{flex: 1}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 code 1
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd9}
-                                            value={
-                                              f.otherValues.additional_code_id1
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_code_id1 =
-                                                item.id;
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sel_val1 =
-                                                item.icd_category_code;
-                                              this.setState({});
-                                            }}
-                                          />
-                                        </View>
-                                        <View style={{flex: 1, marginLeft: 5}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 sub code 1
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd10.filter(
-                                              ee =>
-                                                f.otherValues
-                                                  .additional_sel_val1 ==
-                                                ee.icd_category_code,
-                                            )}
-                                            value={
-                                              f.otherValues
-                                                .additional_sub_code_id1
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sub_code_id1 =
-                                                item.id;
-                                            }}
-                                          />
-                                        </View>
+                                        +
+                                      </Text>
+                                    </TouchableOpacity>
+                                  </View>
+                                  {this.state.showTheThing3 && (
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        marginTop: 10,
+                                      }}>
+                                      <View style={{flex: 1, marginLeft: 5}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          ICD 9 sub code 1
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd10.filter(
+                                            ee =>
+                                              f.otherValues.sel_val ==
+                                              ee.icd_category_code,
+                                          )}
+                                          value={f.otherValues.sub_code_id1}
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.sub_code_id1 =
+                                              item.id;
+                                          }}
+                                        />
                                       </View>
-                                    )}
-                                    {this.state.showTheThing2 && (
-                                      <View
+                                    </View>
+                                  )}
+                                  {this.state.showTheThing3 && (
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        marginTop: 10,
+                                      }}>
+                                      <View style={{flex: 1, marginLeft: 5}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          ICD 9 sub code 2
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd10.filter(
+                                            ee =>
+                                              f.otherValues.sel_val ==
+                                              ee.icd_category_code,
+                                          )}
+                                          value={f.otherValues.sub_code_id2}
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.sub_code_id2 =
+                                              item.id;
+                                          }}
+                                        />
+                                      </View>
+                                    </View>
+                                  )}
+                                  {this.state.showTheThing3 && (
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        marginTop: 10,
+                                      }}>
+                                      <View style={{flex: 1, marginLeft: 5}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          ICD 9 sub code 3
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd10.filter(
+                                            ee =>
+                                              f.otherValues.sel_val ==
+                                              ee.icd_category_code,
+                                          )}
+                                          value={f.otherValues.sub_code_id3}
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.sub_code_id3 =
+                                              item.id;
+                                          }}
+                                        />
+                                      </View>
+                                    </View>
+                                  )}
+                                  {this.state.showTheThing3 && (
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        marginTop: 10,
+                                      }}>
+                                      <View style={{flex: 1, marginLeft: 5}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          ICD 9 sub code 4
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd10.filter(
+                                            ee =>
+                                              f.otherValues.sel_val ==
+                                              ee.icd_category_code,
+                                          )}
+                                          value={f.otherValues.sub_code_id4}
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.sub_code_id4 =
+                                              item.id;
+                                          }}
+                                        />
+                                      </View>
+                                    </View>
+                                  )}
+                                  {this.state.showTheThing3 && (
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        marginTop: 10,
+                                      }}>
+                                      <View style={{flex: 1, marginLeft: 5}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          ICD 9 sub code 5
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd10.filter(
+                                            ee =>
+                                              f.otherValues.sel_val ==
+                                              ee.icd_category_code,
+                                          )}
+                                          value={f.otherValues.sub_code_id5}
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.sub_code_id5 =
+                                              item.id;
+                                          }}
+                                        />
+                                      </View>
+                                    </View>
+                                  )}
+                                  <View
+                                    style={{
+                                      flexDirection: 'row',
+                                      marginTop: 10,
+                                    }}>
+                                    <View style={{flex: 1}}>
+                                      <Text style={{fontWeight: 'bold'}}>
+                                        Additional ICD 9 code
+                                      </Text>
+                                      <FormDropdown
+                                        option={f.otherData.icd9}
+                                        value={
+                                          f.otherValues.additional_code_id1
+                                        }
+                                        action={item => {
+                                          this.formInput[i].question[
+                                            j
+                                          ].otherValues.additional_code_id1 =
+                                            item.id;
+                                          this.formInput[i].question[
+                                            j
+                                          ].otherValues.additional_sel_val1 =
+                                            item.icd_category_code;
+                                          this.setState({});
+                                        }}
+                                      />
+                                    </View>
+                                    <View style={{flex: 1, marginLeft: 5}}>
+                                      <Text style={{fontWeight: 'bold'}}>
+                                        Additional ICD 9 sub code
+                                      </Text>
+                                      <FormDropdown
+                                        option={f.otherData.icd10.filter(
+                                          ee =>
+                                            f.otherValues
+                                              .additional_sel_val1 ==
+                                            ee.icd_category_code,
+                                        )}
+                                        value={
+                                          f.otherValues.additional_sub_code_id
+                                        }
+                                        action={item => {
+                                          this.formInput[i].question[
+                                            j
+                                          ].otherValues.additional_sub_code_id =
+                                            item.id;
+                                        }}
+                                      />
+                                    </View>
+                                  </View>
+                                  <View>
+                                    <TouchableOpacity
+                                      style={{
+                                        backgroundColor: '#EDBC40',
+                                        borderRadius: 2,
+                                        padding: 2,
+                                        margin: 2,
+                                      }}
+                                      onPress={() => this.toggleStatus2()}>
+                                      <Text
                                         style={{
-                                          flexDirection: 'row',
-                                          marginTop: 10,
+                                          textAlign: 'center',
+                                          color: 'white',
+                                          fontSize: 20,
+                                          fontWeight: 'bold',
+                                          marginBottom: 2,
                                         }}>
-                                        <View style={{flex: 1}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 code 2
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd9}
-                                            value={
-                                              f.otherValues.additional_code_id2
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_code_id2 =
-                                                item.id;
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sel_val2 =
-                                                item.icd_category_code;
-                                              this.setState({});
-                                            }}
-                                          />
-                                        </View>
-                                        <View style={{flex: 1, marginLeft: 5}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 sub code 2
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd10.filter(
-                                              ee =>
-                                                f.otherValues
-                                                  .additional_sel_val2 ==
-                                                ee.icd_category_code,
-                                            )}
-                                            value={
+                                        +
+                                      </Text>
+                                    </TouchableOpacity>
+                                  </View>
+                                  {this.state.showTheThing2 && (
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        marginTop: 10,
+                                      }}>
+                                      <View style={{flex: 1, marginLeft: 5}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          Additional ICD 9 sub code 1
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd10.filter(
+                                            ee =>
                                               f.otherValues
-                                                .additional_sub_code_id2
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sub_code_id2 =
-                                                item.id;
-                                            }}
-                                          />
-                                        </View>
+                                                .additional_sel_val1 ==
+                                              ee.icd_category_code,
+                                          )}
+                                          value={
+                                            f.otherValues
+                                              .additional_sub_code_id1
+                                          }
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.additional_sub_code_id1 =
+                                              item.id;
+                                          }}
+                                        />
                                       </View>
-                                    )}
-                                    {this.state.showTheThing2 && (
-                                      <View
-                                        style={{
-                                          flexDirection: 'row',
-                                          marginTop: 10,
-                                        }}>
-                                        <View style={{flex: 1}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 code 3
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd9}
-                                            value={
-                                              f.otherValues.additional_code_id3
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_code_id3 =
-                                                item.id;
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sel_val3 =
-                                                item.icd_category_code;
-                                              this.setState({});
-                                            }}
-                                          />
-                                        </View>
-                                        <View style={{flex: 1, marginLeft: 5}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 sub code 3
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd10.filter(
-                                              ee =>
-                                                f.otherValues
-                                                  .additional_sel_val3 ==
-                                                ee.icd_category_code,
-                                            )}
-                                            value={
+                                    </View>
+                                  )}
+                                  {this.state.showTheThing2 && (
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        marginTop: 10,
+                                      }}>
+                                      <View style={{flex: 1, marginLeft: 5}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          Additional ICD 9 sub code 2
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd10.filter(
+                                            ee =>
                                               f.otherValues
-                                                .additional_sub_code_id3
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sub_code_id3 =
-                                                item.id;
-                                            }}
-                                          />
-                                        </View>
+                                                .additional_sel_val1 ==
+                                              ee.icd_category_code,
+                                          )}
+                                          value={
+                                            f.otherValues
+                                              .additional_sub_code_id2
+                                          }
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.additional_sub_code_id2 =
+                                              item.id;
+                                          }}
+                                        />
                                       </View>
-                                    )}
-                                    {this.state.showTheThing2 && (
-                                      <View
-                                        style={{
-                                          flexDirection: 'row',
-                                          marginTop: 10,
-                                        }}>
-                                        <View style={{flex: 1}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 code 4
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd9}
-                                            value={
-                                              f.otherValues.additional_code_id4
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_code_id4 =
-                                                item.id;
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sel_val4 =
-                                                item.icd_category_code;
-                                              this.setState({});
-                                            }}
-                                          />
-                                        </View>
-                                        <View style={{flex: 1, marginLeft: 5}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 sub code 4
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd10.filter(
-                                              ee =>
-                                                f.otherValues
-                                                  .additional_sel_val4 ==
-                                                ee.icd_category_code,
-                                            )}
-                                            value={
+                                    </View>
+                                  )}
+                                  {this.state.showTheThing2 && (
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        marginTop: 10,
+                                      }}>
+                                      <View style={{flex: 1, marginLeft: 5}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          Additional ICD 9 sub code 3
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd10.filter(
+                                            ee =>
                                               f.otherValues
-                                                .additional_sub_code_id4
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sub_code_id4 =
-                                                item.id;
-                                            }}
-                                          />
-                                        </View>
+                                                .additional_sel_val1 ==
+                                              ee.icd_category_code,
+                                          )}
+                                          value={
+                                            f.otherValues
+                                              .additional_sub_code_id3
+                                          }
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.additional_sub_code_id3 =
+                                              item.id;
+                                          }}
+                                        />
                                       </View>
-                                    )}
-                                    {this.state.showTheThing2 && (
-                                      <View
-                                        style={{
-                                          flexDirection: 'row',
-                                          marginTop: 10,
-                                        }}>
-                                        <View style={{flex: 1}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 code 5
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd9}
-                                            value={
-                                              f.otherValues.additional_code_id5
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_code_id5 =
-                                                item.id;
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sel_val5 =
-                                                item.icd_category_code;
-                                              this.setState({});
-                                            }}
-                                          />
-                                        </View>
-                                        <View style={{flex: 1, marginLeft: 5}}>
-                                          <Text style={{fontWeight: 'bold'}}>
-                                            Additional ICD 9 sub code 5
-                                          </Text>
-                                          <FormDropdown
-                                            option={f.otherData.icd10.filter(
-                                              ee =>
-                                                f.otherValues
-                                                  .additional_sel_val5 ==
-                                                ee.icd_category_code,
-                                            )}
-                                            value={
+                                    </View>
+                                  )}
+                                  {this.state.showTheThing2 && (
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        marginTop: 10,
+                                      }}>
+                                      <View style={{flex: 1, marginLeft: 5}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          Additional ICD 9 sub code 4
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd10.filter(
+                                            ee =>
                                               f.otherValues
-                                                .additional_sub_code_id5
-                                            }
-                                            action={item => {
-                                              this.formInput[i].question[
-                                                j
-                                              ].otherValues.additional_sub_code_id5 =
-                                                item.id;
-                                            }}
-                                          />
-                                        </View>
+                                                .additional_sel_val1 ==
+                                              ee.icd_category_code,
+                                          )}
+                                          value={
+                                            f.otherValues
+                                              .additional_sub_code_id4
+                                          }
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.additional_sub_code_id4 =
+                                              item.id;
+                                          }}
+                                        />
                                       </View>
-                                    )}
+                                    </View>
+                                  )}
+                                  {this.state.showTheThing2 && (
+                                    <View
+                                      style={{
+                                        flexDirection: 'row',
+                                        marginTop: 10,
+                                      }}>
+                                      <View style={{flex: 1, marginLeft: 5}}>
+                                        <Text style={{fontWeight: 'bold'}}>
+                                          Additional ICD 9 sub code 5
+                                        </Text>
+                                        <FormDropdown
+                                          option={f.otherData.icd10.filter(
+                                            ee =>
+                                              f.otherValues
+                                                .additional_sel_val1 ==
+                                              ee.icd_category_code,
+                                          )}
+                                          value={
+                                            f.otherValues
+                                              .additional_sub_code_id5
+                                          }
+                                          action={item => {
+                                            this.formInput[i].question[
+                                              j
+                                            ].otherValues.additional_sub_code_id5 =
+                                              item.id;
+                                          }}
+                                        />
+                                      </View>
+                                    </View>
+                                  )}
                                 </View>
                               ) : this.formInput[i].question[j].val ==
                                 'assisstance' ? (
