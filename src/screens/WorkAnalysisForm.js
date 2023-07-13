@@ -2904,13 +2904,13 @@ export default class WorkAnalysisForm extends React.Component {
           console.log(r);
           if (r.status) {
             Http._toast('Form has been submittted');
-            // this.formInput.forEach((e,i)=>{
-            //   if(e && e.question){
-            //     e.question.forEach((f,j)=>{
-            //       this.formInput[i]['question'][j]['val']='';
-            //     });
-            //   }
-            // });
+            this.formInput.forEach((e,i)=>{
+              if(e && e.question){
+                e.question.forEach((f,j)=>{
+                  this.formInput[i]['question'][j]['val']='';
+                });
+              }
+            });
             // this.loadForm();
             this.setState({});
           }
