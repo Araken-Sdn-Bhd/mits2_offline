@@ -186,7 +186,7 @@ export default class WorkAnalysisForm extends React.Component {
             val: '',
             option: [
               { id: 'yes', value: 'yes' },
-              { id: 'No', value: 'No' },
+              { id: 'No', value: 'no' },
             ],
             subQus: [
               {
@@ -1520,7 +1520,7 @@ export default class WorkAnalysisForm extends React.Component {
             val: '',
             option: [
               { id: 'yes', value: 'yes' },
-              { id: 'No', value: 'No' },
+              { id: 'No', value: 'no' },
             ],
             subQus: [
               {
@@ -2671,21 +2671,21 @@ export default class WorkAnalysisForm extends React.Component {
               sel_val: '',
               code_id: 0,
               sub_code_id: 0,
-              additional_code_id1: 0,
+              additional_code_id1: '',
               additional_sel_val1: '',
-              additional_sub_code_id1: 0,
-              additional_code_id2: 0,
+              additional_sub_code_id1: '',
+              additional_code_id2: '',
               additional_sel_val2: '',
-              additional_sub_code_id2: 0,
-              additional_code_id3: 0,
+              additional_sub_code_id2: '',
+              additional_code_id3: '',
               additional_sel_val3: '',
-              additional_sub_code_id3: 0,
-              additional_code_id4: 0,
+              additional_sub_code_id3: '',
+              additional_code_id4: '',
               additional_sel_val4: '',
-              additional_sub_code_id4: 0,
-              additional_code_id5: 0,
+              additional_sub_code_id4: '',
+              additional_code_id5: '',
               additional_sel_val5: '',
-              additional_sub_code_id5: 0,
+              additional_sub_code_id5: '',
               services_id: 0,
             },
             otherData: { icd9: [], icd10: [], external: [], assistance: [] },
@@ -2872,7 +2872,7 @@ export default class WorkAnalysisForm extends React.Component {
                 SEND[ff.key] = ff.val;
               });
             } else {
-              SEND[f.key] = '-';
+              SEND[f.key] = 'no';
             }
           }
           if (f.flag == 4) {
@@ -2904,14 +2904,14 @@ export default class WorkAnalysisForm extends React.Component {
           console.log(r);
           if (r.status) {
             Http._toast('Form has been submittted');
-            this.formInput.forEach((e,i)=>{
-              if(e && e.question){
-                e.question.forEach((f,j)=>{
-                  this.formInput[i]['question'][j]['val']='';
-                });
-              }
-            });
-            // this.loadForm();
+            // this.formInput.forEach((e,i)=>{
+            //   if(e && e.question){
+            //     e.question.forEach((f,j)=>{
+            //       this.formInput[i]['question'][j]['val']='';
+            //     });
+            //   }
+            // });
+            this.loadForm();
             this.setState({});
           }
         })
