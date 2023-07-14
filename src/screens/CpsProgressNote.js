@@ -447,7 +447,7 @@ export default class CpsProgressNote extends React.Component {
             ],
           },
           {
-            key: 'psychopathology_remarks',
+            key: 'ipsychopathology_remarks',
             hint: '',
             title: 'Remark',
             flag: 4,
@@ -464,7 +464,7 @@ export default class CpsProgressNote extends React.Component {
             typ: 'radio',
             val: '',
             option: [
-              {id: 'Nil', value: 'Nil'},
+              {id: 'No', value: 'No'},
               {id: 'Mild', value: 'Mild'},
               {id: 'Moderate', value: 'Moderate'},
               {id: 'Severe', value: 'Severe'},

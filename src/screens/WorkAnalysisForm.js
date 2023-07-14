@@ -212,7 +212,7 @@ export default class WorkAnalysisForm extends React.Component {
               {
                 key: 'on_date',
                 hint: '',
-                title: 'On Date',
+                title: 'On Date Based On YYYY-MM-DD',
                 flag: 0,
                 typ: 'text',
                 val: '',
