@@ -146,7 +146,7 @@ export default class WorkAnalysisForm extends React.Component {
             key: 'client_name',
             hint: '',
             title: 'Client name',
-            flag: 0,
+            flag: 25,
             typ: 'text',
             val: '',
           },
@@ -196,8 +196,8 @@ export default class WorkAnalysisForm extends React.Component {
                 val: '',
                 option: [
                   { id: 'Per Hour', section_value: 'Per Hour' },
-                  { id: 'Per Day', section_value: 'Per Hour' },
-                  { id: 'Per Month', section_value: 'Per Hour' },
+                  { id: 'Per Day', section_value: 'Per Day' },
+                  { id: 'Per Month', section_value: 'Per Month' },
                 ],
               },
               {
@@ -3327,6 +3327,26 @@ export default class WorkAnalysisForm extends React.Component {
                               this.setState({});
                             }}
                           />
+                        ) : f.flag == 25 ? (
+                          <>
+                            <Text
+                              style={{
+                                fontSize: 15,
+                                fontWeight: 'bold',
+                                color: 'gray',
+                                marginBottom: 2,
+                              }}>
+                              {f.title}
+                            </Text>
+                            <FormInput
+                              title={f.title}
+                              value={f.val}
+                              disabled={false}
+                              action={txt => {
+                                this.formInput[i].question[j].val = txt;
+                              }}
+                            />
+                          </>
                         ) : f.flag == 5 ? (
                           <Text
                             style={{

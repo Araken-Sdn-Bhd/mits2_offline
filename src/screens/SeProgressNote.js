@@ -100,6 +100,18 @@ export default class SetProgress extends React.Component {
             option: [],
           },
           {
+            key: 'restart_program',
+            hint: '',
+            title: 'Restart Program',
+            flag: 3,
+            typ: 'radio',
+            val: '',
+            option: [
+              {id: 'Yes', value: 'Yes'},
+              {id: 'No', value: 'No'},
+            ],
+          },
+          {
             key: 'progress_note',
             title: 'Progress note',
             flag: 0,
@@ -724,6 +736,56 @@ export default class SetProgress extends React.Component {
                                   }}
                                 />
                               </TouchableOpacity>
+                            </>
+                          ) : f.flag == 3 ? (
+                            <>
+                              <Text
+                                style={{
+                                  fontSize: 15,
+                                  fontWeight: 'bold',
+                                  color: 'gray',
+                                  marginBottom: 2,
+                                }}>
+                                {f.title}
+                              </Text>
+                              <View
+                                style={{
+                                  flexDirection: 'row',
+                                  marginVertical: 5,
+                                }}>
+                                {f.option.map(obj => {
+                                  return (
+                                    <TouchableOpacity
+                                      onPress={() => {
+                                        console.log(obj);
+                                        this.formInput[i].question[j].val =
+                                          obj.value;
+                                        this.setState({});
+                                      }}
+                                      style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        backgroundColor: 'white',
+                                        marginRight: 10,
+                                        padding: 10,
+                                        borderRadius: 10,
+                                      }}>
+                                      <Icon
+                                        size={18}
+                                        name={
+                                          this.formInput[i].question[j].val ==
+                                          obj.value
+                                            ? 'radio-button-on-outline'
+                                            : 'radio-button-off-outline'
+                                        }
+                                      />
+                                      <Text style={{color: 'gray'}}>
+                                        {obj.value}
+                                      </Text>
+                                    </TouchableOpacity>
+                                  );
+                                })}
+                              </View>
                             </>
                           ) : f.flag == 4 ? (
                             <>

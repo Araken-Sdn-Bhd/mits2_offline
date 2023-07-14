@@ -447,7 +447,7 @@ export default class CpsProgressNote extends React.Component {
             ],
           },
           {
-            key: 'ipsychopathology_remarks',
+            key: 'psychopathology_remarks',
             hint: '',
             title: 'Remark',
             flag: 4,
@@ -537,18 +537,10 @@ export default class CpsProgressNote extends React.Component {
             val: '',
           },
           {
-            key: '',
-            hint: '',
-            title: null,
-            flag: 5,
-            head: 'SIDE EFFECTS',
-            disabled: true,
-          },
-
-          {
             key: 'akathisia',
             hint: '',
             title: 'Akathisia',
+            title2: 'SIDE EFFECTS',
             flag: 3,
             typ: 'radio',
             val: '',
@@ -626,12 +618,11 @@ export default class CpsProgressNote extends React.Component {
             val: '',
           },
           // social_performance
-          {key: '', hint: '', title: null, flag: 5, head: 'INTERVENTION'},
-
           {
             key: 'psychoeducation',
             hint: '',
             title: 'Psychoeducation/counseling',
+            title2: 'INTERVENTION',
             flag: 3,
             typ: 'radio',
             val: '',
@@ -737,11 +728,11 @@ export default class CpsProgressNote extends React.Component {
           },
 
           // {key:'psychiatric_clinic', hint:'', title: 'Psychiatric clinic', open:false, flag: 2, typ: 'date', val: ''},
-          {key: '', hint: '', title: null, flag: 5, head: 'FOLLOW UP'},
           {
             key: 'psychiatric_clinic',
             hint: 'Date',
             title: 'Psychiatric clinic',
+            title2: 'FOLLOW UP',
             open: false,
             flag: 2,
             typ: 'date',
