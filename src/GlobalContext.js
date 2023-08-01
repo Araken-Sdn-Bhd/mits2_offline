@@ -150,7 +150,7 @@ class GlobalProvider extends Component {
         if (this.SEP.length > 0 && this.isConnected){
           this.SEP.forEach((dd,i)=>{
             setTimeout(() => {
-              Http.POST('se-progress-note/add',dd).then(r=>{
+              Http.POST('se-progress-note/addMobile',dd).then(r=>{
                 console.log(r);
                 if (r.code == 200){
                   Http._toast('Form has been saved successfully');
@@ -177,7 +177,7 @@ class GlobalProvider extends Component {
         if (this.CPS.length > 0 && this.isConnected){
           this.CPS.forEach((dd,i)=>{
             setTimeout(() => {
-              Http.POST('cps-progress-note/add',dd).then(r=>{
+              Http.POST('cps-progress-note/addMobile',dd).then(r=>{
                 console.log(r);
                 if (r.code == 200){
                   Http._toast('Form has been saved successfully');
@@ -204,7 +204,7 @@ class GlobalProvider extends Component {
         if (this.WA.length > 0 && this.isConnected){
           this.WA.forEach((dd,i)=>{
             setTimeout(() => {
-              Http.POST('work-analysis/add',dd).then(r=>{
+              Http.POST('work-analysis/addMobile',dd).then(r=>{
                 console.log(r);
                 if (r.code == 200){
                   Http._toast('Form has been saved successfully');
