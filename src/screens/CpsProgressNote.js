@@ -1577,14 +1577,14 @@ export default class CpsProgressNote extends React.Component {
                                       </View>
                                     </View>
                                     <View>
-                                      <TouchableOpacity
+                                      {/* <TouchableOpacity
                                         style={{
                                           backgroundColor: '#EDBC40',
                                           borderRadius: 2,
                                           padding: 2,
                                           margin: 2,
                                         }}
-                                        onPress={() => this.toggleStatus3()}>
+                                        >
                                         <Text
                                           style={{
                                             textAlign: 'center',
@@ -1595,9 +1595,9 @@ export default class CpsProgressNote extends React.Component {
                                           }}>
                                           +
                                         </Text>
-                                      </TouchableOpacity>
+                                      </TouchableOpacity> */}
                                     </View>
-                                    {this.state.showTheThing3 && (
+                                    
                                       <View
                                         style={{
                                           flexDirection: 'row',
@@ -1623,8 +1623,8 @@ export default class CpsProgressNote extends React.Component {
                                           />
                                         </View>
                                       </View>
-                                    )}
-                                    {this.state.showTheThing3 && (
+                                    
+
                                       <View
                                         style={{
                                           flexDirection: 'row',
@@ -1650,8 +1650,7 @@ export default class CpsProgressNote extends React.Component {
                                           />
                                         </View>
                                       </View>
-                                    )}
-                                    {this.state.showTheThing3 && (
+
                                       <View
                                         style={{
                                           flexDirection: 'row',
@@ -1677,8 +1676,7 @@ export default class CpsProgressNote extends React.Component {
                                           />
                                         </View>
                                       </View>
-                                    )}
-                                    {this.state.showTheThing3 && (
+
                                       <View
                                         style={{
                                           flexDirection: 'row',
@@ -1704,8 +1702,7 @@ export default class CpsProgressNote extends React.Component {
                                           />
                                         </View>
                                       </View>
-                                    )}
-                                    {this.state.showTheThing3 && (
+
                                       <View
                                         style={{
                                           flexDirection: 'row',
@@ -1731,7 +1728,7 @@ export default class CpsProgressNote extends React.Component {
                                           />
                                         </View>
                                       </View>
-                                    )}
+
                                     <View
                                       style={{
                                         flexDirection: 'row',
@@ -1783,7 +1780,7 @@ export default class CpsProgressNote extends React.Component {
                                       </View>
                                     </View>
                                     <View>
-                                      <TouchableOpacity
+                                      {/* <TouchableOpacity
                                         style={{
                                           backgroundColor: '#EDBC40',
                                           borderRadius: 2,
@@ -1801,9 +1798,9 @@ export default class CpsProgressNote extends React.Component {
                                           }}>
                                           +
                                         </Text>
-                                      </TouchableOpacity>
+                                      </TouchableOpacity> */}
                                     </View>
-                                    {this.state.showTheThing2 && (
+
                                       <View
                                         style={{
                                           flexDirection: 'row',
@@ -1833,8 +1830,8 @@ export default class CpsProgressNote extends React.Component {
                                           />
                                         </View>
                                       </View>
-                                    )}
-                                    {this.state.showTheThing2 && (
+                                    
+
                                       <View
                                         style={{
                                           flexDirection: 'row',
@@ -1864,8 +1861,8 @@ export default class CpsProgressNote extends React.Component {
                                           />
                                         </View>
                                       </View>
-                                    )}
-                                    {this.state.showTheThing2 && (
+
+
                                       <View
                                         style={{
                                           flexDirection: 'row',
@@ -1895,8 +1892,8 @@ export default class CpsProgressNote extends React.Component {
                                           />
                                         </View>
                                       </View>
-                                    )}
-                                    {this.state.showTheThing2 && (
+ 
+
                                       <View
                                         style={{
                                           flexDirection: 'row',
@@ -1926,8 +1923,7 @@ export default class CpsProgressNote extends React.Component {
                                           />
                                         </View>
                                       </View>
-                                    )}
-                                    {this.state.showTheThing2 && (
+
                                       <View
                                         style={{
                                           flexDirection: 'row',
@@ -1957,7 +1953,7 @@ export default class CpsProgressNote extends React.Component {
                                           />
                                         </View>
                                       </View>
-                                    )}
+
                                   </View>
                                 ) : this.formInput[i].question[j].val ==
                                   'assisstance' ? (
@@ -2010,7 +2006,7 @@ export default class CpsProgressNote extends React.Component {
                                   this.setState({});
                                 }}
                               />
-                              <TouchableOpacity
+                              {/* <TouchableOpacity
                                 style={{
                                   backgroundColor: '#EDBC40',
                                   borderRadius: 2,
@@ -2028,11 +2024,11 @@ export default class CpsProgressNote extends React.Component {
                                   }}>
                                   +
                                 </Text>
-                              </TouchableOpacity>
+                              </TouchableOpacity> */}
                             </>
                           ) : f.flag == 13 ? (
                             <>
-                              {this.state.showTheThing && (
+
                                 <>
                                   {f.title ? (
                                     <Text
@@ -2062,11 +2058,11 @@ export default class CpsProgressNote extends React.Component {
                                     }}
                                   />
                                 </>
-                              )}
+                              
                             </>
                           ) : f.flag == 14 ? (
                             <>
-                              {this.state.showTheThing && (
+
                                 <>
                                   {f.title ? (
                                     <Text
@@ -2096,11 +2092,11 @@ export default class CpsProgressNote extends React.Component {
                                     }}
                                   />
                                 </>
-                              )}
+                              
                             </>
                           ) : f.flag == 15 ? (
                             <>
-                              {this.state.showTheThing && (
+
                                 <>
                                   {f.title ? (
                                     <Text
@@ -2130,11 +2126,10 @@ export default class CpsProgressNote extends React.Component {
                                     }}
                                   />
                                 </>
-                              )}
+
                             </>
                           ) : f.flag == 16 ? (
                             <>
-                              {this.state.showTheThing && (
                                 <>
                                   {f.title ? (
                                     <Text
@@ -2164,11 +2159,11 @@ export default class CpsProgressNote extends React.Component {
                                     }}
                                   />
                                 </>
-                              )}
+
                             </>
                           ) : f.flag == 17 ? (
                             <>
-                              {this.state.showTheThing && (
+
                                 <>
                                   {f.title ? (
                                     <Text
@@ -2198,7 +2193,7 @@ export default class CpsProgressNote extends React.Component {
                                     }}
                                   />
                                 </>
-                              )}
+
                             </>
                           ) : null}
                           <View style={{height: 5}} />
