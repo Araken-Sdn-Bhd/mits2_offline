@@ -3535,7 +3535,7 @@ export default class WorkAnalysisForm extends React.Component {
                                       />
                                     </View>
                                   </View>
-                                  <View>
+                                  {/* <View>
                                     <TouchableOpacity
                                       style={{
                                         backgroundColor: '#EDBC40',
@@ -3555,8 +3555,7 @@ export default class WorkAnalysisForm extends React.Component {
                                         +
                                       </Text>
                                     </TouchableOpacity>
-                                  </View>
-                                  {this.state.showTheThing3 && (
+                                  </View> */}
                                     <View
                                       style={{
                                         flexDirection: 'row',
@@ -3582,8 +3581,6 @@ export default class WorkAnalysisForm extends React.Component {
                                         />
                                       </View>
                                     </View>
-                                  )}
-                                  {this.state.showTheThing3 && (
                                     <View
                                       style={{
                                         flexDirection: 'row',
@@ -3609,8 +3606,6 @@ export default class WorkAnalysisForm extends React.Component {
                                         />
                                       </View>
                                     </View>
-                                  )}
-                                  {this.state.showTheThing3 && (
                                     <View
                                       style={{
                                         flexDirection: 'row',
@@ -3636,8 +3631,6 @@ export default class WorkAnalysisForm extends React.Component {
                                         />
                                       </View>
                                     </View>
-                                  )}
-                                  {this.state.showTheThing3 && (
                                     <View
                                       style={{
                                         flexDirection: 'row',
@@ -3663,8 +3656,6 @@ export default class WorkAnalysisForm extends React.Component {
                                         />
                                       </View>
                                     </View>
-                                  )}
-                                  {this.state.showTheThing3 && (
                                     <View
                                       style={{
                                         flexDirection: 'row',
@@ -3690,7 +3681,6 @@ export default class WorkAnalysisForm extends React.Component {
                                         />
                                       </View>
                                     </View>
-                                  )}
                                   <View
                                     style={{
                                       flexDirection: 'row',
@@ -3741,7 +3731,7 @@ export default class WorkAnalysisForm extends React.Component {
                                       />
                                     </View>
                                   </View>
-                                  <View>
+                                  {/* <View>
                                     <TouchableOpacity
                                       style={{
                                         backgroundColor: '#EDBC40',
@@ -3761,8 +3751,7 @@ export default class WorkAnalysisForm extends React.Component {
                                         +
                                       </Text>
                                     </TouchableOpacity>
-                                  </View>
-                                  {this.state.showTheThing2 && (
+                                  </View> */}
                                     <View
                                       style={{
                                         flexDirection: 'row',
@@ -3792,8 +3781,6 @@ export default class WorkAnalysisForm extends React.Component {
                                         />
                                       </View>
                                     </View>
-                                  )}
-                                  {this.state.showTheThing2 && (
                                     <View
                                       style={{
                                         flexDirection: 'row',
@@ -3823,8 +3810,6 @@ export default class WorkAnalysisForm extends React.Component {
                                         />
                                       </View>
                                     </View>
-                                  )}
-                                  {this.state.showTheThing2 && (
                                     <View
                                       style={{
                                         flexDirection: 'row',
@@ -3854,8 +3839,6 @@ export default class WorkAnalysisForm extends React.Component {
                                         />
                                       </View>
                                     </View>
-                                  )}
-                                  {this.state.showTheThing2 && (
                                     <View
                                       style={{
                                         flexDirection: 'row',
@@ -3885,8 +3868,6 @@ export default class WorkAnalysisForm extends React.Component {
                                         />
                                       </View>
                                     </View>
-                                  )}
-                                  {this.state.showTheThing2 && (
                                     <View
                                       style={{
                                         flexDirection: 'row',
@@ -3916,7 +3897,6 @@ export default class WorkAnalysisForm extends React.Component {
                                         />
                                       </View>
                                     </View>
-                                  )}
                                 </View>
                               ) : this.formInput[i].question[j].val ==
                                 'assisstance' ? (
@@ -4050,7 +4030,7 @@ export default class WorkAnalysisForm extends React.Component {
                                 this.setState({});
                               }}
                             />
-                            <TouchableOpacity
+                            {/* <TouchableOpacity
                               style={{
                                 backgroundColor: '#EDBC40',
                                 borderRadius: 2,
@@ -4068,11 +4048,10 @@ export default class WorkAnalysisForm extends React.Component {
                                 }}>
                                 +
                               </Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                           </>
                         ) : f.flag == 13 ? (
                           <>
-                            {this.state.showTheThing && (
                               <>
                                 <Text
                                   style={{
@@ -4100,11 +4079,9 @@ export default class WorkAnalysisForm extends React.Component {
                                   }}
                                 />
                               </>
-                            )}
                           </>
                         ) : f.flag == 14 ? (
                           <>
-                            {this.state.showTheThing && (
                               <>
                                 <Text
                                   style={{
@@ -4132,11 +4109,9 @@ export default class WorkAnalysisForm extends React.Component {
                                   }}
                                 />
                               </>
-                            )}
                           </>
                         ) : f.flag == 15 ? (
                           <>
-                            {this.state.showTheThing && (
                               <>
                                 <Text
                                   style={{
@@ -4164,11 +4139,9 @@ export default class WorkAnalysisForm extends React.Component {
                                   }}
                                 />
                               </>
-                            )}
                           </>
                         ) : f.flag == 16 ? (
                           <>
-                            {this.state.showTheThing && (
                               <>
                                 <Text
                                   style={{
@@ -4196,11 +4169,11 @@ export default class WorkAnalysisForm extends React.Component {
                                   }}
                                 />
                               </>
-                            )}
+
                           </>
                         ) : f.flag == 17 ? (
                           <>
-                            {this.state.showTheThing && (
+
                               <>
                                 <Text
                                   style={{
@@ -4228,7 +4201,6 @@ export default class WorkAnalysisForm extends React.Component {
                                   }}
                                 />
                               </>
-                            )}
                           </>
                         ) : null}
                       </View>
